@@ -32,10 +32,17 @@ namespace SA.Tanks
 
             //добавляем компоненты игроку
             AddPlayerComponent(dataTank, player, go);
-            AddInputComponent(player);
+            AddAimingComponent(player);
             AddMoveComponent(dataTank, player, rb);
             AddTurretComponent(dataTank, player, go);
             AddWeaponComponent(player, dataGame.SimpleTankWeapon, go);
+            AddHealthComponent(player, dataGame.PlayerTank.HP);
+        }
+
+
+        void AddHealthComponent(EcsEntity player, int hp)
+        {
+            player.Replace(new HealthComponent() { HP = hp});  
         }
 
 
@@ -81,9 +88,9 @@ namespace SA.Tanks
         }
 
 
-        void AddInputComponent(EcsEntity player)
+        void AddAimingComponent(EcsEntity player)
         {
-            player.Replace(new InputEventComponent());
+            player.Replace(new AimingComponent() { AimPosition = Vector3.zero});
         }
 
 

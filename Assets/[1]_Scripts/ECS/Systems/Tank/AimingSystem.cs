@@ -7,7 +7,7 @@ namespace SA.Tanks
     {
         #region Var
 
-        readonly EcsFilter<InputEventComponent, TankTurretComponent> palyerAimingFilter;
+        readonly EcsFilter<AimingComponent, TankTurretComponent> aimingFilter;
 
         #endregion
 
@@ -20,13 +20,13 @@ namespace SA.Tanks
 
         void PlayerAiming()
         {
-            foreach (var id in palyerAimingFilter)
+            foreach (var id in aimingFilter)
             {
-                ref var input = ref palyerAimingFilter.Get1(id);
-                ref var turret = ref palyerAimingFilter.Get2(id);
+                ref var aiming = ref aimingFilter.Get1(id);
+                ref var turret = ref aimingFilter.Get2(id);
 
-                turret.Target = (!input.AimPosition.Equals(Vector3.zero)) ?
-                    input.AimPosition : Vector3.zero;
+                turret.Target = (!aiming.AimPosition.Equals(Vector3.zero)) ?
+                    aiming.AimPosition : Vector3.zero;
             }
         }
     }

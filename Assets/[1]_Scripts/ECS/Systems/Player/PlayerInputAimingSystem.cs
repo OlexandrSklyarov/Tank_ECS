@@ -1,38 +1,30 @@
 ﻿using Leopotam.Ecs;
+using SA.Tanks.Services;
 using UnityEngine;
 
 namespace SA.Tanks
 {
-    public struct PlayerInputSystem : IEcsRunSystem
+    public struct PlayerInputAimingSystem : IEcsRunSystem
     {
         #region Var
 
-        readonly EcsFilter<InputEventComponent> inputEventFilter;
-
+        readonly EcsFilter<AimingComponent, PlayerComponent> aimingFilter;
         readonly Camera mainCamera;
-
-        const string HORIZONTAL = "Horizontal";
-        const string VERTICAL = "Vertical";
-
-        const float MAX_RAY_DISTANCE = 500f;
 
         #endregion
 
 
         public void Run()
         {
-            var x = Input.GetAxis(HORIZONTAL);
-            var y = Input.GetAxis(VERTICAL);
             var isLeftMouseDown = Input.GetMouseButtonDown(0);
             var isRightMousePressed = Input.GetMouseButton(1);
             var mousePosition = Input.mousePosition;
 
-            foreach (var id in inputEventFilter)
+            foreach (var id in aimingFilter)
             {
-                ref var inputEvent = ref inputEventFilter.Get1(id);
-                var playerEntity = inputEventFilter.GetEntity(id);
+                ref var inputEvent = ref aimingFilter.Get1(id);
+                var playerEntity = aimingFilter.GetEntity(id);
 
-                inputEvent.Direction = new Vector2(x, y);
                 inputEvent.AimPosition = Vector3.zero;
 
                 //если нажата п.к.м
@@ -41,7 +33,7 @@ namespace SA.Tanks
                     var ray = mainCamera.ScreenPointToRay(mousePosition);
 
                     //если луч что либо пересёк, устанавливаем точку прицеливания
-                    if (Physics.Raycast(ray, out RaycastHit hit, MAX_RAY_DISTANCE))
+                    if (Physics.Raycast(ray, out RaycastHit hit, StaticPrm.Input.MAX_SHOOT_DISTANCE))
                     {
                         inputEvent.AimPosition = hit.point;
                     }
@@ -51,9 +43,6 @@ namespace SA.Tanks
                         playerEntity.Get<ShootingEvent>();
                     }
                 }
-
-
-
             }
         }
     }

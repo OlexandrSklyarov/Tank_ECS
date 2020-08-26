@@ -1,7 +1,7 @@
 ﻿using Leopotam.Ecs;
 using SA.Tanks.Services;
 using UnityEngine;
-using SpaceInvadersLeoEcs.Pooling;
+using LeoEcs.Pooling;
 
 namespace SA.Tanks
 {
@@ -36,11 +36,8 @@ namespace SA.Tanks
             var poolGO = CreateShell(weapon.FirePoint);
 
             //add bullet component
-            shellEntity.Replace(new BulletComponent()
-            {
-                Damage = weapon.Damage,
-                ViewGO = poolGO
-            });
+            shellEntity.Replace(new BulletComponent() { Damage = weapon.Damage });
+            shellEntity.Replace(new PoolObjectComponent() { PoolGO = poolGO });
 
             //push
             var rb = poolGO.PoolTransform.GetComponent<Rigidbody>();

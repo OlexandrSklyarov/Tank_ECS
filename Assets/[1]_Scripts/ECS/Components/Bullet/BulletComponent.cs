@@ -1,11 +1,8 @@
-﻿using UnityEngine;
-using SpaceInvadersLeoEcs.Pooling;
-
+﻿
 namespace SA.Tanks
 {
     public struct BulletComponent
     {
         public int Damage { get; set; }
-        public IPoolObject ViewGO { get; set; }
     }
 }

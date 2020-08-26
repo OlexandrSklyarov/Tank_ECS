@@ -7,7 +7,7 @@ namespace SA.Tanks
     {
         #region Var
 
-        EcsFilter<MoveComponent, InputEventComponent> playerMoveFilter;
+        readonly EcsFilter<MoveComponent> moveFilter;
 
         #endregion
 
@@ -20,31 +20,30 @@ namespace SA.Tanks
 
         void PlayerMoving()
         {
-            foreach (var i in playerMoveFilter)
+            foreach (var i in moveFilter)
             {
-                ref var moveComponent = ref playerMoveFilter.Get1(i);
-                ref var inputComponent = ref playerMoveFilter.Get2(i);
+                ref var moveComponent = ref moveFilter.Get1(i);
 
-                Move(ref moveComponent, inputComponent.Direction);
-                Rotate(ref moveComponent, inputComponent.Direction);
+                Move(ref moveComponent);
+                Rotate(ref moveComponent);
             }
         }
 
 
-        void Move(ref MoveComponent move, Vector2 dir)
+        void Move(ref MoveComponent move)
         {
             var forward = move.RB.transform.position
                     + move.RB.transform.forward
-                    * dir.y
+                    * move.Direction.y
                     * move.MoveSpeed * Time.deltaTime;
 
             move.RB.MovePosition(forward);
         }
 
 
-        void Rotate(ref MoveComponent move, Vector2 dir)
+        void Rotate(ref MoveComponent move)
         {
-            var verticalRot = dir.x * move.RotateSpeed;
+            var verticalRot = move.Direction.x * move.RotateSpeed;
 
             var rotation = move.RB.transform.rotation
                 * Quaternion.Euler(0f, verticalRot, 0f);

@@ -1,4 +1,4 @@
-﻿using SpaceInvadersLeoEcs.Pooling;
+﻿using LeoEcs.Pooling;
 
 namespace SA.Tanks.Services
 {

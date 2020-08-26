@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SpaceInvadersLeoEcs.Pooling
+namespace LeoEcs.Pooling
 {
     // ----------------------------------------------------------------------------
 // The MIT License
