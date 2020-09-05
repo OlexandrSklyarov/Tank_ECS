@@ -2,6 +2,7 @@
 using Leopotam.Ecs;
 using UnityEngine;
 using SA.Tanks.Data;
+using UnityEngine.UI;
 
 namespace SA.Tanks
 {
@@ -11,6 +12,7 @@ namespace SA.Tanks
         readonly EcsWorld _world;
         readonly Transform[] enemySpawnPoints;
         readonly DataGame dataGame;
+        readonly Camera mainCamera;
 
         public void Init()
         {
@@ -30,6 +32,8 @@ namespace SA.Tanks
                 rb.maxAngularVelocity = dataTank.MaxAngularVelosity;
 
                 AddMoveComponent(dataTank, enemyEntity, rb);
+                AddHealthComponent(enemyEntity, dataGame.PlayerTank.HP);
+                AddTankUI(enemyEntity, go);
             }
         }
 
@@ -50,6 +54,30 @@ namespace SA.Tanks
                 RotateSpeed = data.RotateSpeed,
                 RB = rb
             });
+        }
+
+
+        private void AddTankUI(EcsEntity player, GameObject go)
+        {
+            //canvas
+            var tankUI = go.transform.GetChild(1).GetComponent<Canvas>();
+            tankUI.worldCamera = mainCamera;
+
+            //hpBar => TankUI/HpBar/HpScale
+            var hpBar = tankUI.transform.GetChild(0).GetChild(0).GetComponent<Image>();
+            hpBar.fillAmount = 1f; //max
+
+            player.Replace(new TankUIComponent() 
+            {                
+                UITransform = tankUI.transform,                
+                HealthBar = hpBar
+            });
+        }
+
+
+        void AddHealthComponent(EcsEntity player, int hp)
+        {
+            player.Replace(new HealthComponent() { HP = hp});  
         }
     }
 }

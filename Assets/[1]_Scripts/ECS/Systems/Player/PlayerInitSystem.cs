@@ -2,6 +2,7 @@
 using SA.Tanks.Data;
 using SA.Tanks.Extensions.UnityComponents;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SA.Tanks
 {
@@ -9,8 +10,9 @@ namespace SA.Tanks
     {
         #region Var
 
-        EcsWorld _world;
-        DataGame dataGame;
+        readonly EcsWorld _world;
+        readonly DataGame dataGame;
+        readonly Camera mainCamera;
 
         #endregion
 
@@ -42,6 +44,25 @@ namespace SA.Tanks
             AddTurretComponent(dataTank, player, go);
             AddWeaponComponent(player, dataGame.SimpleTankWeapon, go);
             AddHealthComponent(player, dataGame.PlayerTank.HP);
+            AddTankUI(player, go);
+        }
+
+
+        private void AddTankUI(EcsEntity player, GameObject go)
+        {
+            //canvas
+            var tankUI = go.transform.GetChild(1).GetComponent<Canvas>();
+            tankUI.worldCamera = mainCamera;
+
+            //hpBar => TankUI/HpBar/HpScale
+            var hpBar = tankUI.transform.GetChild(0).GetChild(0).GetComponent<Image>();
+            hpBar.fillAmount = 1f; //max
+
+            player.Replace(new TankUIComponent() 
+            {                
+                UITransform = tankUI.transform,                
+                HealthBar = hpBar
+            });
         }
 
 

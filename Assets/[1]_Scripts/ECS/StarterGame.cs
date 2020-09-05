@@ -11,7 +11,6 @@ namespace SA.Tanks
         #region Var
 
         [SerializeField] DataGame dataGame;
-        [SerializeField] GameObject[] walls;
         [SerializeField] Transform[] enemySpawnPoints;
 
         EcsWorld world;
@@ -46,8 +45,6 @@ namespace SA.Tanks
         void AddSystems()
         {
             updateSystems
-                .Add(new WallInitSystem())
-
                 .Add(new EnemySpawnSystem())
 
                 .Add(new PalayerInitSystem())
@@ -64,6 +61,8 @@ namespace SA.Tanks
                 .Add(new MoveSystem())
                 .Add(new DamageSystem())
 
+                .Add(new ChangeHPBarSystem())
+
                 .Add(new ReturnPoolEntitySystem());
 
             //fixUpdateSystems
@@ -75,7 +74,8 @@ namespace SA.Tanks
             updateSystems
                 .OneFrame<DestroyComponentEvent>()
                 .OneFrame<DamageComponentEvent>()
-                .OneFrame<ShootingEvent>();
+                .OneFrame<ShootingEvent>()
+                .OneFrame<ChangeHPBarEvent>();
         }
 
 
@@ -83,7 +83,6 @@ namespace SA.Tanks
         {
             updateSystems.Inject(dataGame)
                 .Inject(mainCamera)
-                .Inject(walls)
                 .Inject(enemySpawnPoints)
                 .Inject(new PoolsGameObject())
                 .ProcessInjects();

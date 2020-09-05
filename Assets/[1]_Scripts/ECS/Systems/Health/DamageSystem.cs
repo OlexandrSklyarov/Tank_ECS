@@ -1,5 +1,7 @@
 ﻿using System;
 using Leopotam.Ecs;
+using UnityEngine;
+
 namespace SA.Tanks
 {
     public struct DamageSystem : IEcsRunSystem
@@ -26,12 +28,17 @@ namespace SA.Tanks
 
                 if (healthComponent.HP > 0)
                 {
-                    healthComponent.HP -= damage;
+                    Debug.Log($"HP before: {healthComponent.HP}");
+                    healthComponent.HP -= damage;  
+                    Debug.Log($"HP^ {healthComponent.HP}");             
                 }
                 else 
                 {
                     damageEntity.Replace(new DestroyComponentEvent());
-                }
+                }    
+
+                //добавляем компонент-событие изменения HP
+                damageEntity.Replace(new ChangeHPBarEvent());            
             }
         }
     }
