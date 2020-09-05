@@ -2,6 +2,7 @@
 using SA.Tanks.Services;
 using UnityEngine;
 using LeoEcs.Pooling;
+using SA.Tanks.Extensions.UnityComponents;
 
 namespace SA.Tanks
 {
@@ -13,6 +14,7 @@ namespace SA.Tanks
         readonly PoolsGameObject pools;
 
         readonly EcsFilter<WaponComponent, ShootingEvent> shootingFilter;
+        readonly EcsFilter<BulletComponent> bulletFilter;
 
         #endregion
 
@@ -34,6 +36,10 @@ namespace SA.Tanks
             var shellEntity = _world.NewEntity();
 
             var poolGO = CreateShell(weapon.FirePoint);
+
+            //привязываем сущьность к объекту, 
+            //для воозможности работать с сущьностью в физическеом мире
+            poolGO.PoolTransform.GetProvider().SetEntity(shellEntity);
 
             //add bullet component
             shellEntity.Replace(new BulletComponent() { Damage = weapon.Damage });

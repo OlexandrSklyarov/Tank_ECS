@@ -1,5 +1,6 @@
 ﻿using Leopotam.Ecs;
 using SA.Tanks.Data;
+using SA.Tanks.Extensions.UnityComponents;
 using UnityEngine;
 
 namespace SA.Tanks
@@ -25,6 +26,10 @@ namespace SA.Tanks
 
             //создаём объект и инициализируем компоненты
             var go = Object.Instantiate(dataTank.Prefab);
+
+            //привязываем сущьность к объекту, 
+            //для воозможности работать с сущьностью в физическеом мире
+            go.transform.GetProvider().SetEntity(player);
 
             //получаем компонент Rigidbody
             var rb = go.GetComponent<Rigidbody>();
