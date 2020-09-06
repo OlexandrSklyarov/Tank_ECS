@@ -30,7 +30,7 @@ namespace SA.Tanks
                         ref var player = ref playerFilter.Get1(playerid);
 
                         camera.VirtualCamera.Follow = player.Pivot;
-                        camera.VirtualCamera.LookAt = player.PlayerTransform;
+                        camera.VirtualCamera.LookAt = player.RootTransform;
                         camera.IsTargetExist = true;
                     }
                 }

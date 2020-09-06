@@ -1,6 +1,10 @@
-﻿using Leopotam.Ecs;
+﻿using System;
+using LeoEcs.Pooling;
+using Leopotam.Ecs;
 using SA.Tanks.Data;
+using SA.Tanks.Extensions.PoolGameObject;
 using SA.Tanks.Extensions.UnityComponents;
+using SA.Tanks.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +17,7 @@ namespace SA.Tanks
         readonly EcsWorld _world;
         readonly DataGame dataGame;
         readonly Camera mainCamera;
+        readonly GamePoolObject pool;
 
         #endregion
 
@@ -22,61 +27,96 @@ namespace SA.Tanks
         public void Init()
         {
             var dataTank = dataGame.PlayerTank;
+            var weapon = dataGame.SimpleTankWeapon;
 
             //создаём сущьность
-            var player = _world.NewEntity();
+            var entity = _world.NewEntity();
 
             //создаём объект и инициализируем компоненты
-            var go = Object.Instantiate(dataTank.Prefab);
+            var poolGO = CreatePlayerTank(dataTank.TankType, Vector3.zero, Quaternion.identity);
 
             //привязываем сущьность к объекту, 
             //для воозможности работать с сущьностью в физическеом мире
-            go.transform.GetProvider().SetEntity(player);
+            poolGO.PoolTransform.GetProvider().SetEntity(entity);
 
             //получаем компонент Rigidbody
-            var rb = go.GetComponent<Rigidbody>();
+            var rb = poolGO.PoolTransform.GetComponent<Rigidbody>();
             rb.maxAngularVelocity = dataTank.MaxAngularVelosity;
 
+            var tr = poolGO.PoolTransform;
+
             //добавляем компоненты игроку
-            AddPlayerComponent(dataTank, player, go);
-            AddAimingComponent(player);
-            AddMoveComponent(dataTank, player, rb);
-            AddTurretComponent(dataTank, player, go);
-            AddWeaponComponent(player, dataGame.SimpleTankWeapon, go);
-            AddHealthComponent(player, dataGame.PlayerTank.HP);
-            AddTankUI(player, go);
+            AddPlayerComponent(dataTank, entity, tr);
+            AddPoolObjectComponent(entity, poolGO);
+            AddHealthComponent(entity, dataTank.HP, dataTank.MaxHP);
+            AddTankUI(entity, tr);
+            AddAimingComponent(entity);
+            AddMoveComponent(dataTank, entity, rb);
+            AddTurretComponent(dataTank, entity, tr);
+            AddWeaponComponent(entity, weapon, tr);
+
         }
 
 
-        private void AddTankUI(EcsEntity player, GameObject go)
+        IPoolObject CreatePlayerTank(TankType tankType, Vector3 pos, Quaternion rot)
         {
-            //canvas
-            var tankUI = go.transform.GetChild(1).GetComponent<Canvas>();
-            tankUI.worldCamera = mainCamera;
+            var poolGO = pool.GetTankPool(tankType).Get();
+            poolGO.PoolTransform.position = pos;
+            poolGO.PoolTransform.rotation = rot;
 
-            //hpBar => TankUI/HpBar/HpScale
-            var hpBar = tankUI.transform.GetChild(0).GetChild(0).GetComponent<Image>();
-            hpBar.fillAmount = 1f; //max
+            (poolGO as PoolObject).gameObject.SetActive(true);
 
-            player.Replace(new TankUIComponent() 
-            {                
-                UITransform = tankUI.transform,                
-                HealthBar = hpBar
+            return poolGO;
+        }
+
+        #endregion
+
+
+        #region Component
+
+        void AddPoolObjectComponent(EcsEntity entity, IPoolObject poolGO)
+        {
+            entity.Replace(new PoolObjectComponent()
+            { 
+                PoolGO = poolGO
             });
         }
 
 
-        void AddHealthComponent(EcsEntity player, int hp)
+        void AddTankUI(EcsEntity entity, Transform tr)
         {
-            player.Replace(new HealthComponent() { HP = hp});  
+            //canvas
+            var tankUI = tr.GetChild(1).GetComponent<Canvas>();
+            tankUI.worldCamera = mainCamera;
+
+            //hpBar => TankUI/HpBar/HpScale
+            var hpBar = tankUI.transform.GetChild(0).GetChild(0).GetComponent<Image>();
+
+            entity.Replace(new TankUIComponent() 
+            {                
+                UITransform = tankUI.transform,                
+                HealthBar = hpBar
+            });
+
+            entity.Replace(new ChangeHPEvent());
         }
 
 
-        static void AddWeaponComponent(EcsEntity player, DataWeapon weapon, GameObject go)
+        void AddHealthComponent(EcsEntity player, int hp, int maxHp)
+        {
+            player.Replace(new HealthComponent() 
+            { 
+                HP = hp,
+                MaxHP = maxHp
+            });  
+        }
+
+
+        void AddWeaponComponent(EcsEntity player, DataWeapon weapon, Transform tr)
         {
             player.Replace(new WaponComponent()
             {
-                FirePoint = go.transform //tank
+                FirePoint = tr //tank
                     .GetChild(0).transform //model
                     .GetChild(1).transform // turret
                     .GetChild(1).transform, //fire point
@@ -87,9 +127,9 @@ namespace SA.Tanks
         }
 
 
-        void AddTurretComponent(DataTank data, EcsEntity player, GameObject go)
+        void AddTurretComponent(DataTank data, EcsEntity player, Transform tr)
         {
-            var turret = go.transform //tank
+            var turret = tr //tank
                 .GetChild(0).transform //model
                 .GetChild(1).transform; // turret
 
@@ -120,15 +160,16 @@ namespace SA.Tanks
         }
 
 
-        void AddPlayerComponent(DataTank data, EcsEntity player, GameObject go)
+        void AddPlayerComponent(DataTank data, EcsEntity player, Transform tr)
         {
             //добавляем компонент игрока
             var pivot = new GameObject("Pivot");
-            pivot.transform.SetParent(go.transform);
+            pivot.transform.SetParent(tr);
             pivot.transform.localPosition = data.CameraPivotPosition;
             player.Replace(new PlayerComponent()
             {
-                PlayerTransform = go.transform,
+                TankType = data.TankType,
+                RootTransform = tr,
                 Pivot = pivot.transform
             });
         }

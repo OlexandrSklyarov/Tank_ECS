@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ed5f986cd96f3f19a3351f4bcddc92a, type: 3}
   m_Name: DataEnemyTank_2
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8578106769476865678, guid: 96319e0ab35f95008a8b3c2b231d9244, type: 3}
+  tankType: 1
   hp: 100
+  maxHp: 100
   moveSpeed: 7
   rotateSpeed: 3
   cameraPivotPosition: {x: 0, y: 8, z: -5}

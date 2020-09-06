@@ -11,27 +11,25 @@ namespace SA.Tanks
         #region Var
 
         readonly EcsWorld _world;
-        readonly PoolsGameObject pools;
-
-        readonly EcsFilter<WaponComponent, ShootingEvent> shootingFilter;
-        readonly EcsFilter<BulletComponent> bulletFilter;
+        readonly GamePoolObject pool;
+        readonly EcsFilter<WaponComponent, ShootingEvent> shooterFilter;
 
         #endregion
 
 
         public void Run()
         {
-            foreach(var id in shootingFilter)
+            foreach(var id in shooterFilter)
             {
-                ref var weapon = ref shootingFilter.Get1(id);
-                ref var shootEvent = ref shootingFilter.Get2(id);
+                ref var weapon = ref shooterFilter.Get1(id);
 
-                SpawnBulet(weapon, shootEvent);
+                SpawnBulet(ref weapon);
+                Debug.Log($"Fire entity: {id}");
             }
         }
 
 
-        void SpawnBulet(WaponComponent weapon, ShootingEvent shoot)
+        void SpawnBulet(ref WaponComponent weapon)
         {
             var shellEntity = _world.NewEntity();
 
@@ -46,15 +44,22 @@ namespace SA.Tanks
             shellEntity.Replace(new PoolObjectComponent() { PoolGO = poolGO });
 
             //push
+            Fire(ref weapon, ref poolGO);           
+        }
+
+
+        void Fire(ref WaponComponent weapon, ref IPoolObject poolGO)
+        {
             var rb = poolGO.PoolTransform.GetComponent<Rigidbody>();
+            rb.isKinematic = false;
             var force = rb.transform.forward * weapon.ShellSpeed;
-            rb.AddForce(force, ForceMode.Impulse);
+            rb.AddForce(force, ForceMode.Impulse);           
         }
 
 
         IPoolObject CreateShell(Transform spawnPoint)
         {
-            var poolGO = pools.Bullets.Get();
+            var poolGO = pool.Bullet.Get();
             poolGO.PoolTransform.position = spawnPoint.position;
             poolGO.PoolTransform.rotation = spawnPoint.rotation;
 

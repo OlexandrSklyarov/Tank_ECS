@@ -13,8 +13,6 @@ namespace SpaceInvadersLeoEcs.UnityComponents
 
             //добавляем снаряду компонент-событие об уничтожении
             Entity.Replace(new DestroyComponentEvent());
-
-            Debug.Log(Entity.Id);
            
             var otherTransform = other.transform;
             if (!otherTransform.HasProvider()) return;

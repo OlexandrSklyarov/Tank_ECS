@@ -1,10 +1,9 @@
-﻿using System;
-using Leopotam.Ecs;
+﻿using Leopotam.Ecs;
 using UnityEngine;
 
 namespace SA.Tanks
 {
-    public struct DamageSystem : IEcsRunSystem
+    public struct TakeDamageSystem : IEcsRunSystem
     {
         #region Var
 
@@ -19,26 +18,24 @@ namespace SA.Tanks
             {
                 var damageEntity = damageFilter.GetEntity(id);
 
-                //если сущьность отключена, или не существует, выходим
+                //если сущьность существует
                 if (!damageEntity.IsAlive()) return;
 
                 var damage = damageFilter.Get1(id).DamageAmount;
 
                 ref var healthComponent = ref damageFilter.Get2(id);
 
-                if (healthComponent.HP > 0)
-                {
-                    Debug.Log($"HP before: {healthComponent.HP}");
-                    healthComponent.HP -= damage;  
-                    Debug.Log($"HP^ {healthComponent.HP}");             
-                }
-                else 
-                {
+                healthComponent.HP -= damage;
+
+                if (healthComponent.HP <= 0)
+                {                
                     damageEntity.Replace(new DestroyComponentEvent());
-                }    
+                }
 
                 //добавляем компонент-событие изменения HP
-                damageEntity.Replace(new ChangeHPBarEvent());            
+                damageEntity.Replace(new ChangeHPEvent());
+
+                Debug.Log($"Damage entity: {damageEntity.Id}");
             }
         }
     }

@@ -7,8 +7,9 @@ namespace SA.Tanks.Data
     {
         #region Properties
 
-        public GameObject Prefab => prefab;
+        public TankType TankType => tankType;
         public int HP => hp;
+        public int MaxHP => maxHp;
         public float MoveSpeed => moveSpeed;
         public float RotateSpeed => rotateSpeed;
         public float MaxAngularVelosity => 100f;
@@ -22,8 +23,9 @@ namespace SA.Tanks.Data
         #region Var
 
         [Header("Tank")]
-        [SerializeField] GameObject prefab;
+        [SerializeField] TankType tankType;
         [SerializeField] [Range(1, 1000)] int hp;
+        [SerializeField] [Range(1, 1000)] int maxHp;
         [SerializeField] [Range(1f, 100f)] float moveSpeed;
         [SerializeField] [Range(1f, 100f)] float rotateSpeed;
         [SerializeField] Vector3 cameraPivotPosition;
@@ -35,6 +37,12 @@ namespace SA.Tanks.Data
 
         #endregion
 
+    }
+
+
+    public enum TankType
+    {
+        TANK_1, TANK_2
     }
 }
 

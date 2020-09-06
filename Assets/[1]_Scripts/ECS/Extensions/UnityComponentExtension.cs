@@ -8,9 +8,8 @@ namespace SA.Tanks.Extensions.UnityComponents
         public static IEcsUnityProvider GetProvider(this Component component)
         {
             var gameObject = component.gameObject;
-            
-            IEcsUnityProvider provider;
-            var providerExist = gameObject.TryGetComponent(out provider);
+
+            var providerExist = gameObject.TryGetComponent(out IEcsUnityProvider provider);
             if (!providerExist)
             {
                 provider = gameObject.AddComponent<EcsUnityProvider>();

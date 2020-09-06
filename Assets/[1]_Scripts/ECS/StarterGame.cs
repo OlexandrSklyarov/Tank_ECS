@@ -45,25 +45,30 @@ namespace SA.Tanks
         void AddSystems()
         {
             updateSystems
+                //Enemy
                 .Add(new EnemySpawnSystem())
 
+                //Player
                 .Add(new PalayerInitSystem())
                 .Add(new PlayerInputAimingSystem())
                 .Add(new PlayerInputMoveSystem())
 
+                //Tank
                 .Add(new AimingSystem())
                 .Add(new ShootingSystem())
                 .Add(new TankTurretRotateSystem())
+                .Add(new MoveSystem())
 
+                //Camera
                 .Add(new InitCameraFollowSystem())
                 .Add(new CameraFollowTargetSystem())
 
-                .Add(new MoveSystem())
-                .Add(new DamageSystem())
+                //UI
+                .Add(new ChangeTankUISystem())
 
-                .Add(new ChangeHPBarSystem())
-
-                .Add(new ReturnPoolEntitySystem());
+                //Damage
+                .Add(new TakeDamageSystem())
+                .Add(new DestroyEntitySystem());
 
             //fixUpdateSystems
         }
@@ -75,7 +80,7 @@ namespace SA.Tanks
                 .OneFrame<DestroyComponentEvent>()
                 .OneFrame<DamageComponentEvent>()
                 .OneFrame<ShootingEvent>()
-                .OneFrame<ChangeHPBarEvent>();
+                .OneFrame<ChangeHPEvent>();
         }
 
 
@@ -84,7 +89,7 @@ namespace SA.Tanks
             updateSystems.Inject(dataGame)
                 .Inject(mainCamera)
                 .Inject(enemySpawnPoints)
-                .Inject(new PoolsGameObject())
+                .Inject(new GamePoolObject())
                 .ProcessInjects();
         }
 

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4415208582392295758, guid: 7c10312fd1b921901855dde26a46d670, type: 3}
   hp: 100
+  maxHp: 100
   moveSpeed: 7
   rotateSpeed: 3
   cameraPivotPosition: {x: 0, y: 8, z: -5}

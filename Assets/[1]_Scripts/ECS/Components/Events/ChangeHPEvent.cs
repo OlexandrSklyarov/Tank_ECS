@@ -1,6 +1,6 @@
 ﻿namespace SA.Tanks
 {
-    public struct ChangeHPBarEvent
+    public struct ChangeHPEvent
     {        
     }
 }

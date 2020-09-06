@@ -1,18 +1,29 @@
-﻿
+﻿using SA.Tanks.Extensions.UnityComponents;
 using Leopotam.Ecs;
 using UnityEngine;
 using SA.Tanks.Data;
 using UnityEngine.UI;
+using System;
+using LeoEcs.Pooling;
+using SA.Tanks.Services;
+using SA.Tanks.Extensions.PoolGameObject;
 
 namespace SA.Tanks
 {
     public struct EnemySpawnSystem : IEcsInitSystem
     {
+        #region Var
 
         readonly EcsWorld _world;
         readonly Transform[] enemySpawnPoints;
         readonly DataGame dataGame;
         readonly Camera mainCamera;
+        readonly GamePoolObject pool;
+
+        #endregion
+
+
+        #region Init
 
         public void Init()
         {
@@ -24,17 +35,34 @@ namespace SA.Tanks
                 var enemyEntity = _world.NewEntity();
 
                 //создаём объект и инициализируем компоненты
-                var point = enemySpawnPoints[i];
-                var go = Object.Instantiate(dataTank.Prefab, point.position, Quaternion.identity);
+                var poolGO = CreateTankGO(dataTank.TankType, enemySpawnPoints[i]);
+
+                //привязываем сущьность к объекту, 
+                //для воозможности работать с сущьностью в физическеом мире
+                poolGO.PoolTransform.GetProvider().SetEntity(enemyEntity);
 
                 //получаем компонент Rigidbody
-                var rb = go.GetComponent<Rigidbody>();
+                var rb = poolGO.PoolTransform.GetComponent<Rigidbody>();
                 rb.maxAngularVelocity = dataTank.MaxAngularVelosity;
 
+                AddEnemyComponent(enemyEntity, dataTank.TankType);
+                AddPoolObjectComponent(enemyEntity, poolGO);
                 AddMoveComponent(dataTank, enemyEntity, rb);
-                AddHealthComponent(enemyEntity, dataGame.PlayerTank.HP);
-                AddTankUI(enemyEntity, go);
+                AddHealthComponent(enemyEntity, dataTank.HP, dataTank.MaxHP);
+                AddTankUI(enemyEntity, poolGO.PoolTransform);
             }
+        }
+
+
+        IPoolObject CreateTankGO(TankType tankType, Transform spawnPoint)
+        {
+            var poolGO = pool.GetTankPool(tankType).Get();
+            poolGO.PoolTransform.position = spawnPoint.position;
+            poolGO.PoolTransform.rotation = spawnPoint.rotation;
+
+            (poolGO as PoolObject).gameObject.SetActive(true);
+
+            return poolGO;
         }
 
 
@@ -42,6 +70,27 @@ namespace SA.Tanks
         {
             var randomIndex = UnityEngine.Random.Range(0, dataGame.EnemyTank.Length);
             return dataGame.EnemyTank[randomIndex];
+        }
+
+        #endregion
+
+        #region Component
+
+        void AddPoolObjectComponent(EcsEntity entity, IPoolObject poolGO)
+        {
+            entity.Replace(new PoolObjectComponent()
+            {
+                PoolGO = poolGO
+            });
+        }
+
+
+        void AddEnemyComponent(EcsEntity entity, TankType tankType)
+        {
+            entity.Replace(new EnemyComponent()
+            { 
+                TankType = tankType
+            });
         }
 
 
@@ -57,27 +106,34 @@ namespace SA.Tanks
         }
 
 
-        private void AddTankUI(EcsEntity player, GameObject go)
+        void AddTankUI(EcsEntity entity, Transform tr)
         {
             //canvas
-            var tankUI = go.transform.GetChild(1).GetComponent<Canvas>();
+            var tankUI = tr.GetChild(1).GetComponent<Canvas>();
             tankUI.worldCamera = mainCamera;
 
             //hpBar => TankUI/HpBar/HpScale
             var hpBar = tankUI.transform.GetChild(0).GetChild(0).GetComponent<Image>();
-            hpBar.fillAmount = 1f; //max
-
-            player.Replace(new TankUIComponent() 
+           
+            entity.Replace(new TankUIComponent() 
             {                
                 UITransform = tankUI.transform,                
                 HealthBar = hpBar
             });
+
+            entity.Replace(new ChangeHPEvent());
         }
 
 
-        void AddHealthComponent(EcsEntity player, int hp)
+        void AddHealthComponent(EcsEntity entity, int hp, int maxHp)
         {
-            player.Replace(new HealthComponent() { HP = hp});  
+            entity.Replace(new HealthComponent()
+            {
+                HP = hp,
+                MaxHP = maxHp
+            });
         }
+
+        #endregion
     }
 }
