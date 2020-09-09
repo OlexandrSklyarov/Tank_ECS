@@ -61,14 +61,14 @@ namespace SA.Tanks
 
                 //Camera
                 .Add(new InitCameraFollowSystem())
-                .Add(new CameraFollowTargetSystem())
-
-                //UI
-                .Add(new ChangeTankUISystem())
+                .Add(new CameraFollowTargetSystem())               
 
                 //Damage
                 .Add(new TakeDamageSystem())
-                .Add(new DestroyEntitySystem());
+                .Add(new DestroyEntitySystem())
+
+                //UI
+                .Add(new ChangeTankUISystem());
 
             //fixUpdateSystems
         }

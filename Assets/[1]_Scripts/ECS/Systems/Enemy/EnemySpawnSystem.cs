@@ -74,6 +74,7 @@ namespace SA.Tanks
 
         #endregion
 
+
         #region Component
 
         void AddPoolObjectComponent(EcsEntity entity, IPoolObject poolGO)

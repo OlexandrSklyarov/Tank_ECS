@@ -20,6 +20,7 @@ namespace SpaceInvadersLeoEcs.UnityComponents
             //пытаемся получить сущьность су объекта с которым столкнулись
             var otherEntity = otherTransform.GetProvider().Entity;
             if (!otherEntity.IsAlive()) return;
+            Debug.Log($"Other entity id:{otherEntity.Id}");
 
             //добавляем компонент урона на сущьность с которой столкнулся снаряд
             var bulletDamage = Entity.Get<BulletComponent>().Damage;
