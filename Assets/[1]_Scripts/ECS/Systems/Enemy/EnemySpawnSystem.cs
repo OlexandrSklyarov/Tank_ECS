@@ -10,7 +10,7 @@ using SA.Tanks.Extensions.PoolGameObject;
 
 namespace SA.Tanks
 {
-    public struct EnemySpawnSystem : IEcsInitSystem
+    public struct EnemySpawnSystem : IEcsRunSystem
     {
         #region Var
 
@@ -20,39 +20,50 @@ namespace SA.Tanks
         readonly Camera mainCamera;
         readonly GamePoolObject pool;
 
+        readonly EcsFilter<EnemyNumComponent, EnemySpawnPointComponent, AddEnemyEvent> enemySpawnController;
+
         #endregion
 
 
         #region Init
 
-        public void Init()
+        public void Run()
         {
-            for (int i = 0; i < enemySpawnPoints.Length; i++)
+            //если нашлась сущьность с таким компонентом, создаем врага
+            foreach(var id in enemySpawnController)
             {
-                var dataTank = GetRandomEnemy();
-
-                //создаём сущьность
-                var enemyEntity = _world.NewEntity();
-
-                //создаём объект и инициализируем компоненты
-                var poolGO = CreateTankGO(dataTank.TankType, enemySpawnPoints[i]);
-
-                //привязываем сущьность к объекту, 
-                //для воозможности работать с сущьностью в физическеом мире
-                poolGO.PoolTransform.GetProvider().SetEntity(enemyEntity);
-
-                //получаем компонент Rigidbody
-                var rb = poolGO.PoolTransform.GetComponent<Rigidbody>();
-                rb.maxAngularVelocity = dataTank.MaxAngularVelosity;
-
-                AddEnemyComponent(enemyEntity, dataTank.TankType);
-                AddPoolObjectComponent(enemyEntity, poolGO);
-                AddMoveComponent(dataTank, enemyEntity, rb);
-                AddHealthComponent(enemyEntity, dataTank.HP, dataTank.MaxHP);
-                AddTankUI(enemyEntity, poolGO.PoolTransform);
+                var index = enemySpawnController.Get2(id).FreeSpawnPointIndex;
+                var point = enemySpawnPoints[index];
+                CreateEnemy(point);
             }
         }
 
+       
+        void CreateEnemy(Transform point)
+        {         
+            var dataTank = GetRandomEnemy();
+
+            //создаём объект и инициализируем компоненты
+            var poolGO = CreateTankGO(dataTank.TankType, point);
+
+            //создаём сущьность
+            var enemyEntity = _world.NewEntity();
+
+            //привязываем сущьность к объекту, 
+            //для воозможности работать с сущьностью в физическеом мире
+            poolGO.PoolTransform.GetProvider().SetEntity(enemyEntity);
+
+            //получаем компонент Rigidbody
+            var rb = poolGO.PoolTransform.GetComponent<Rigidbody>();
+            rb.maxAngularVelocity = dataTank.MaxAngularVelosity;
+
+            AddEnemyComponent(enemyEntity, dataTank.TankType);
+            AddPoolObjectComponent(enemyEntity, poolGO);
+            AddMoveComponent(dataTank, enemyEntity, rb);
+            AddHealthComponent(enemyEntity, dataTank.HP, dataTank.MaxHP);
+            AddTankUI(enemyEntity, poolGO.PoolTransform);
+        }
+               
 
         IPoolObject CreateTankGO(TankType tankType, Transform spawnPoint)
         {

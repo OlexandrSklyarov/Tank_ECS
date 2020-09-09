@@ -34,8 +34,6 @@ namespace SA.Tanks
 
                 //добавляем компонент-событие изменения HP
                 damageEntity.Replace(new ChangeHPEvent());
-
-                Debug.Log($"Damage entity: {damageEntity.Id}");
             }
         }
     }

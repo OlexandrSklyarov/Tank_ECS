@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataGame: {fileID: 11400000, guid: 69e5e3990d9a7b6259a5899e656e3fb5, type: 2}
+  dataLevel: {fileID: 11400000, guid: 3e4f32fd7c01f3749aa5ef0fe6b27288, type: 2}
   enemySpawnPoints:
   - {fileID: 1794834188}
   - {fileID: 1327126252}

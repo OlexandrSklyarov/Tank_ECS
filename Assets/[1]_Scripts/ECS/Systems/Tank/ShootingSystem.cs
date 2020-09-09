@@ -24,7 +24,6 @@ namespace SA.Tanks
                 ref var weapon = ref shooterFilter.Get1(id);
 
                 SpawnBulet(ref weapon);
-                Debug.Log($"Fire entity: {id}");
             }
         }
 

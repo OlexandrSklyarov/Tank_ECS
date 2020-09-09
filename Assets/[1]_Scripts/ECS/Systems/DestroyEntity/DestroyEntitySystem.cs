@@ -17,19 +17,20 @@ namespace SA.Tanks
         readonly EcsFilter<DestroyComponentEvent, PoolObjectComponent, BulletComponent> bulletFilter;
         readonly EcsFilter<DestroyComponentEvent, PoolObjectComponent, EnemyComponent> enemyTankFilter;
         readonly EcsFilter<DestroyComponentEvent, PoolObjectComponent, PlayerComponent> playerTankFilter;
+        readonly EcsFilter<EnemyNumComponent> enemySpawnController;
 
         #endregion
 
 
         public void Run()
         {
-            ReturnBullet();
-            ReturnEnemyTank();
-            ReturnPlayerTank();
+            DestroyBullet();
+            DestroyEnemyTank();
+            DestroyPlayerTank();
         }
 
 
-        void ReturnBullet()
+        void DestroyBullet()
         {
             foreach (var id in bulletFilter)
             {
@@ -40,29 +41,35 @@ namespace SA.Tanks
 
                 var entity = bulletFilter.GetEntity(id);
                 entity.Destroy();
-
-                Debug.Log("Destroy bullet");
             }
         }
 
 
-        void ReturnEnemyTank()
+        void DestroyEnemyTank()
         {
-            foreach (var id in enemyTankFilter)
+            foreach (var numID in enemySpawnController)
             {
-                var poolGO = enemyTankFilter.Get2(id).PoolGO;
-                var type = enemyTankFilter.Get3(id).TankType;
-                ReturnTankGo(type, poolGO);
+                //number controller
+                ref var enemyCount = ref enemySpawnController.Get1(numID);
 
-                var entity = enemyTankFilter.GetEntity(id);
-                entity.Destroy();
+                foreach (var id in enemyTankFilter)
+                {
+                    var poolGO = enemyTankFilter.Get2(id).PoolGO;
+                    var type = enemyTankFilter.Get3(id).TankType;
+                    ReturnTankGo(type, poolGO);
 
-                Debug.Log("Destroy Enemy Tank");
+                    var entity = enemyTankFilter.GetEntity(id);
+                    entity.Destroy();
+
+                    //меняем счетчик врагов на уровне
+                    enemyCount.EnemyExistCount--;
+                    Debug.Log($"Enemys: {enemyCount.EnemyExistCount}");
+                }
             }
         }
 
 
-        void ReturnPlayerTank()
+        void DestroyPlayerTank()
         {
             foreach (var id in playerTankFilter)
             {
