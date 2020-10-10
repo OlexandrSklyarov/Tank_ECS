@@ -3,7 +3,6 @@ using Leopotam.Ecs;
 using UnityEngine;
 using SA.Tanks.Data;
 using UnityEngine.UI;
-using System;
 using LeoEcs.Pooling;
 using SA.Tanks.Services;
 using SA.Tanks.Extensions.PoolGameObject;
@@ -20,7 +19,7 @@ namespace SA.Tanks
         readonly Camera mainCamera;
         readonly GamePoolObject pool;
 
-        readonly EcsFilter<EnemyNumComponent, EnemySpawnPointComponent, AddEnemyEvent> enemySpawnController;
+        readonly EcsFilter<EnemyNumComponent, EnemySpawnPointComponent, CreateNewEnemyEvent> enemySpawnController;
 
         #endregion
 
@@ -32,15 +31,24 @@ namespace SA.Tanks
             //если нашлась сущьность с таким компонентом, создаем врага
             foreach(var id in enemySpawnController)
             {
-                var index = enemySpawnController.Get2(id).FreeSpawnPointIndex;
-                var point = enemySpawnPoints[index];
-                CreateEnemy(point);
+                var point = enemySpawnController.Get2(id).FreeSpawnPoint;
+                ref var num = ref enemySpawnController.Get1(id);
+
+                if (point)
+                {
+                    CreateEnemy(point);
+
+                    //изменяем счёт танков на поле
+                    num.EnemyExistCount++;
+                    num.RemnantEnemies--;
+                    Debug.Log($"Enemys: {num.EnemyExistCount}");
+                }
             }
         }
 
        
         void CreateEnemy(Transform point)
-        {         
+        {           
             var dataTank = GetRandomEnemy();
 
             //создаём объект и инициализируем компоненты

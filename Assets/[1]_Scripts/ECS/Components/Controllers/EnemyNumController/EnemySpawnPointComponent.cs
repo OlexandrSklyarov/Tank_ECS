@@ -4,14 +4,7 @@ namespace SA.Tanks
 {
     public struct EnemySpawnPointComponent
     {
-        public int FreeSpawnPointIndex 
-        {
-            get => currentSpawnPointIndex;
-            set { currentSpawnPointIndex = (value > MaxIndex) ? 0 : value; } 
-        }
-
-        public int MaxIndex { private get; set; }
-      
-        int currentSpawnPointIndex;
+        public Transform FreeSpawnPoint { get; set; }
+        public Transform[] AllSpawnPoints { get; set; }
     }
 }

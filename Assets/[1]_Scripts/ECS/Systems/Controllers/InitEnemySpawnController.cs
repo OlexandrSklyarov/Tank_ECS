@@ -12,7 +12,7 @@ namespace SA.Tanks
         readonly Transform[] enemySpawnPoints;
 
         const int ENEMY_COUNT = 0;
-        const int SPAWN_POINT_INDEX = 0;
+        const int START_SPAWN_POINT_INDEX = 0;
 
         public void PreInit()
         {
@@ -26,8 +26,8 @@ namespace SA.Tanks
             })
             .Replace(new EnemySpawnPointComponent()
             {
-                FreeSpawnPointIndex = SPAWN_POINT_INDEX,
-                MaxIndex = enemySpawnPoints.Length - 1
+                FreeSpawnPoint = enemySpawnPoints[START_SPAWN_POINT_INDEX],
+                AllSpawnPoints = enemySpawnPoints
             });
 
 

@@ -1,7 +1,7 @@
 ﻿
 namespace SA.Tanks
 {
-    public struct AddEnemyEvent
+    public struct CreateNewEnemyEvent
     {
     }
 }

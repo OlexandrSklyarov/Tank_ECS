@@ -66,9 +66,11 @@ namespace SA.Tanks
                 .Add(new InitCameraFollowSystem())
                 .Add(new CameraFollowTargetSystem())               
 
-                //Damage
+                //Damage / Destroy
                 .Add(new TakeDamageSystem())
-                .Add(new DestroyEntitySystem())
+                .Add(new DestroyPlayerSystem())
+                .Add(new DestroyEnemySystem())
+                .Add(new DestroyBulletSystem())
 
                 //UI
                 .Add(new ChangeTankUISystem());
@@ -80,7 +82,7 @@ namespace SA.Tanks
         void RegistrationEvents()
         {
             updateSystems
-                .OneFrame<AddEnemyEvent>()
+                .OneFrame<CreateNewEnemyEvent>()
                 .OneFrame<DestroyComponentEvent>()
                 .OneFrame<DamageComponentEvent>()
                 .OneFrame<ShootingEvent>()
@@ -90,7 +92,8 @@ namespace SA.Tanks
 
         void Injected()
         {
-            updateSystems.Inject(dataGame)
+            updateSystems
+                .Inject(dataGame)
                 .Inject(dataLevel)
                 .Inject(mainCamera)
                 .Inject(enemySpawnPoints)
