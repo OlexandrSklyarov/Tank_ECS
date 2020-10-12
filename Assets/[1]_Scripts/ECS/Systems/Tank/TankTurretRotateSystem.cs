@@ -30,14 +30,15 @@ namespace SA.Tanks
                 if (!turret.Target.Equals(Vector3.zero)
                     && Vector3.Distance(turret.Target, turret.TurretTransform.position) > MAX_DISTANCE_TO_TARGET)
                 {
-                    var direction = turret.Target - turret.TurretTransform.position;
+                    var direction = turret.Target - turret.TurretTransform.position;                   
                     targetRotate = Quaternion.LookRotation(direction);
-                }
+                }                 
 
                 //поворачиваем турель
-                turret.TurretTransform.rotation = Quaternion.Lerp(turret.TurretTransform.rotation, 
-                                                                targetRotate,
-                                                                turret.RotateSpeed * Time.deltaTime);
+                turret.TurretTransform.rotation = 
+                    Quaternion.Lerp(turret.TurretTransform.rotation, 
+                                    targetRotate,
+                                    turret.RotateSpeed * Time.deltaTime);               
             }
         }
 
