@@ -7,7 +7,7 @@ namespace SA.Tanks
     {
         #region Var
 
-        readonly EcsFilter<MoveComponent> moveFilter;
+        readonly EcsFilter<MoveComponent> moveFilter;       
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace SA.Tanks
                 ref var moveComponent = ref moveFilter.Get1(i);
 
                 Move(ref moveComponent);
-                Rotate(ref moveComponent);
+                Rotate(ref moveComponent);                
             }
         }
 
@@ -37,8 +37,19 @@ namespace SA.Tanks
                     * move.Direction.y
                     * move.MoveSpeed * Time.deltaTime;
 
+            //Drag
+            if (move.Direction.magnitude > move.MinDrag)
+            {
+                move.RB.drag = move.MinDrag;
+            }
+            else if (move.RB.drag < move.MaxDrag)
+            {
+                move.RB.drag += move.DragValue;
+            }          
+
+            //Move
             move.RB.MovePosition(forward);
-        }
+        }        
 
 
         void Rotate(ref MoveComponent move)

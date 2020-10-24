@@ -9,7 +9,7 @@ namespace SA.Tanks
         #region Var
 
         readonly EcsFilter<MoveComponent, PlayerComponent> playerMoveFilter;
-        readonly Camera mainCamera;
+        readonly Camera mainCamera;       
 
         #endregion
 
@@ -18,11 +18,12 @@ namespace SA.Tanks
         {
             foreach (var id in playerMoveFilter)
             {
-                playerMoveFilter.Get1(id).Direction = new Vector2
-                (
-                    Input.GetAxis(StaticPrm.Input.HORIZONTAL), // x
-                    Input.GetAxis(StaticPrm.Input.VERTICAL)  // y
-                );
+                ref var moveComponent = ref playerMoveFilter.Get1(id);
+
+                var x = Input.GetAxis(StaticPrm.Input.HORIZONTAL);
+                var y = Input.GetAxis(StaticPrm.Input.VERTICAL);
+
+                moveComponent.Direction = new Vector2(x, y);                  
             }
         }
     }

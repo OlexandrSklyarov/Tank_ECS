@@ -32,7 +32,6 @@ namespace SA.Tanks
 
             world = new EcsWorld();
             updateSystems = new EcsSystems(world);
-            //fixUpdateSystems = new EcsSystems(world);
 
             mainCamera = Camera.main;
 
@@ -74,8 +73,6 @@ namespace SA.Tanks
 
                 //UI
                 .Add(new ChangeTankUISystem());
-
-            //fixUpdateSystems
         }
 
 
@@ -105,23 +102,17 @@ namespace SA.Tanks
         void InitSystems()
         {
             updateSystems.Init();
-            //fixUpdateSystems.Init();
         }
 
         #endregion
 
 
-        #region Update
-
-        void Update()
-        {
-            updateSystems.Run();
-        }
+        #region Update   
 
 
         void FixedUpdate()
         {
-            //fixUpdateSystems.Run();
+            updateSystems.Run();
         }
 
         #endregion

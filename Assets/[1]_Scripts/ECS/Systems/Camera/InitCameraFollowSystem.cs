@@ -16,13 +16,13 @@ namespace SA.Tanks
 
         public void Init()
         {
-            var vc = UnityEngine.Object.FindObjectOfType<CinemachineVirtualCamera>();
+            var virtualCamera = UnityEngine.Object.FindObjectOfType<CinemachineVirtualCamera>();
 
             var cameraEntity = _world.NewEntity();
 
             cameraEntity.Replace(new CameraFollowComponent()
             {
-                VirtualCamera = vc
+                VirtualCamera = virtualCamera
             });
 
         }
