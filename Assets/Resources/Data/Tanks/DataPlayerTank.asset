@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ed5f986cd96f3f19a3351f4bcddc92a, type: 3}
   m_Name: DataPlayerTank
   m_EditorClassIdentifier: 
-  prefab: {fileID: 4415208582392295758, guid: 7c10312fd1b921901855dde26a46d670, type: 3}
+  tankType: 0
   hp: 100
   maxHp: 100
   moveSpeed: 7

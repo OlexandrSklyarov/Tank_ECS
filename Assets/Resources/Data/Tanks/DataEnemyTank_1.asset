@@ -15,7 +15,7 @@ MonoBehaviour:
   tankType: 1
   hp: 100
   maxHp: 100
-  moveSpeed: 7
+  moveSpeed: 10
   rotateSpeed: 3
   cameraPivotPosition: {x: 0, y: 8, z: -5}
   turretSpeedRotate: 10
