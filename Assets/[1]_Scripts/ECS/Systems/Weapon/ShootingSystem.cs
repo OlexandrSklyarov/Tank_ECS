@@ -23,7 +23,16 @@ namespace SA.Tanks
             {
                 ref var weapon = ref shooterFilter.Get1(id);
 
-                SpawnBulet(ref weapon);
+                if (weapon.LastFireTime > 0f)
+                {
+                    weapon.LastFireTime -= Time.deltaTime * 1f;
+                    Debug.Log($"Reload time: {weapon.LastFireTime}");
+                }
+                else
+                {
+                    SpawnBulet(ref weapon);
+                    weapon.LastFireTime = weapon.ReloadTime;
+                }                
             }
         }
 

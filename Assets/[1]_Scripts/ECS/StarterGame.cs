@@ -55,9 +55,12 @@ namespace SA.Tanks
                 .Add(new EnemyCountObserverSystem())
                 .Add(new EnemySpawnSystem())
 
-                //Tank
+                //Weapon
                 .Add(new AimingSystem())
                 .Add(new ShootingSystem())
+                .Add(new WeaponReloadTimeSystem())
+
+                //Tank
                 .Add(new TankTurretRotateSystem())
                 .Add(new MoveSystem())
 

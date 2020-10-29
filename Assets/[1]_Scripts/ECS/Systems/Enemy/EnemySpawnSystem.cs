@@ -49,7 +49,7 @@ namespace SA.Tanks
        
         void CreateEnemy(Transform point)
         {           
-            var dataTank = GetRandomEnemy();
+            var dataTank = GetRandomEnemy(dataGame);
 
             //создаём объект и инициализируем компоненты
             var poolGO = CreateTankGO(dataTank.TankType, point);
@@ -85,10 +85,10 @@ namespace SA.Tanks
         }
 
 
-        DataTank GetRandomEnemy()
+        DataTank GetRandomEnemy(DataGame data)
         {
-            var randomIndex = UnityEngine.Random.Range(0, dataGame.EnemyTank.Length);
-            return dataGame.EnemyTank[randomIndex];
+            var randomIndex = UnityEngine.Random.Range(0, data.EnemyTank.Length);
+            return data.EnemyTank[randomIndex];
         }
 
         #endregion

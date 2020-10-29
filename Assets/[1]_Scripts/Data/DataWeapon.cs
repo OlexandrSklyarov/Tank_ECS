@@ -10,6 +10,7 @@ namespace SA.Tanks.Data
         public GameObject Prefab => prefab;
         public float Speed => speed;
         public int Damage => damage;
+        public float ReloadTime => reloadTime;
 
         #endregion
 
@@ -19,6 +20,7 @@ namespace SA.Tanks.Data
         [SerializeField] GameObject prefab;
         [SerializeField] [Range(1f, 500f)] float speed;
         [SerializeField] [Range(1, 1000)] int damage;
+        [SerializeReference] [Range(0.5f, 5f)] float reloadTime;
 
         #endregion
 

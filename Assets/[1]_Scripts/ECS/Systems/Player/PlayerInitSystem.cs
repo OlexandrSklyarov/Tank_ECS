@@ -122,7 +122,8 @@ namespace SA.Tanks
                     .GetChild(1).transform, //fire point
 
                 ShellSpeed = weapon.Speed,
-                Damage = weapon.Damage
+                Damage = weapon.Damage,
+                ReloadTime = weapon.ReloadTime
             });
         }
 
