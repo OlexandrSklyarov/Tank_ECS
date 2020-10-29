@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SA.Tanks
 {
-    public struct ChangeTankUISystem : IEcsRunSystem
+    public struct ChangeTankHealthBarSystem : IEcsRunSystem
     {
         #region Var
 
@@ -14,11 +14,11 @@ namespace SA.Tanks
 
         public void Run()
         {
-            ChangeHPBar();
+            ChangeHealthBar();
         }
     
 
-        void ChangeHPBar()
+        void ChangeHealthBar()
         {
             foreach (var id in changeHpBarFilter)
             {

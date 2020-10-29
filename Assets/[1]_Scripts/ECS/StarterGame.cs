@@ -75,7 +75,7 @@ namespace SA.Tanks
                 .Add(new DestroyBulletSystem())
 
                 //UI
-                .Add(new ChangeTankUISystem());
+                .Add(new ChangeTankHealthBarSystem());
         }
 
 

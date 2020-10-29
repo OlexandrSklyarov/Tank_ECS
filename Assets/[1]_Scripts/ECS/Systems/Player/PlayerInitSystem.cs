@@ -45,15 +45,17 @@ namespace SA.Tanks
 
             var tr = poolGO.PoolTransform;
 
+            var provider = tr.GetComponent<TankProvider>();
+
             //добавляем компоненты игроку
             AddPlayerComponent(dataTank, entity, tr);
             AddPoolObjectComponent(entity, poolGO);
             AddHealthComponent(entity, dataTank.HP, dataTank.MaxHP);
-            AddTankUI(entity, tr);
+            AddTankUI(entity, provider);
             AddAimingComponent(entity);
             AddMoveComponent(dataTank, entity, rb);
-            AddTurretComponent(dataTank, entity, tr);
-            AddWeaponComponent(entity, weapon, tr);
+            AddTurretComponent(dataTank, entity, provider);
+            AddWeaponComponent(entity, weapon, provider);
 
         }
 
@@ -83,19 +85,16 @@ namespace SA.Tanks
         }
 
 
-        void AddTankUI(EcsEntity entity, Transform tr)
-        {
+        void AddTankUI(EcsEntity entity, TankProvider provider)
+        {    
             //canvas
-            var tankUI = tr.GetChild(1).GetComponent<Canvas>();
+            var tankUI = provider.TankCanvas;
             tankUI.worldCamera = mainCamera;
-
-            //hpBar => TankUI/HpBar/HpScale
-            var hpBar = tankUI.transform.GetChild(0).GetChild(0).GetComponent<Image>();
 
             entity.Replace(new TankUIComponent() 
             {                
                 UITransform = tankUI.transform,                
-                HealthBar = hpBar
+                HealthBar = provider.HPBar
             });
 
             entity.Replace(new ChangeHPEvent());
@@ -112,15 +111,11 @@ namespace SA.Tanks
         }
 
 
-        void AddWeaponComponent(EcsEntity player, DataWeapon weapon, Transform tr)
+        void AddWeaponComponent(EcsEntity player, DataWeapon weapon, TankProvider provider)
         {
             player.Replace(new WaponComponent()
             {
-                FirePoint = tr //tank
-                    .GetChild(0).transform //model
-                    .GetChild(1).transform // turret
-                    .GetChild(1).transform, //fire point
-
+                FirePoint = provider.FirePoint,
                 ShellSpeed = weapon.Speed,
                 Damage = weapon.Damage,
                 ReloadTime = weapon.ReloadTime
@@ -128,16 +123,11 @@ namespace SA.Tanks
         }
 
 
-        void AddTurretComponent(DataTank data, EcsEntity player, Transform tr)
+        void AddTurretComponent(DataTank data, EcsEntity player, TankProvider provider)
         {
-            var turret = tr //tank
-                .GetChild(0).transform //model
-                .GetChild(1).transform; // turret
-
-
             player.Replace(new TankTurretComponent()
             {
-                TurretTransform = turret,
+                TurretTransform = provider.TankTurret,
                 RotateSpeed = data.TurretSpeedRotate
             });
         }

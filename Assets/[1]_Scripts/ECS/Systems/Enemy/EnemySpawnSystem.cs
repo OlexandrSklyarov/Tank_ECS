@@ -65,11 +65,15 @@ namespace SA.Tanks
             var rb = poolGO.PoolTransform.GetComponent<Rigidbody>();
             rb.maxAngularVelocity = dataTank.MaxAngularVelosity;
 
+            var tr = poolGO.PoolTransform;
+
+            var provider = tr.GetComponent<TankProvider>();
+
             AddEnemyComponent(enemyEntity, dataTank.TankType);
             AddPoolObjectComponent(enemyEntity, poolGO);
             AddMoveComponent(dataTank, enemyEntity, rb);
             AddHealthComponent(enemyEntity, dataTank.HP, dataTank.MaxHP);
-            AddTankUI(enemyEntity, poolGO.PoolTransform);
+            AddTankUI(enemyEntity, provider);
         }
                
 
@@ -126,19 +130,16 @@ namespace SA.Tanks
         }
 
 
-        void AddTankUI(EcsEntity entity, Transform tr)
-        {
+         void AddTankUI(EcsEntity entity, TankProvider provider)
+        {    
             //canvas
-            var tankUI = tr.GetChild(1).GetComponent<Canvas>();
+            var tankUI = provider.TankCanvas;
             tankUI.worldCamera = mainCamera;
 
-            //hpBar => TankUI/HpBar/HpScale
-            var hpBar = tankUI.transform.GetChild(0).GetChild(0).GetComponent<Image>();
-           
             entity.Replace(new TankUIComponent() 
             {                
                 UITransform = tankUI.transform,                
-                HealthBar = hpBar
+                HealthBar = provider.HPBar
             });
 
             entity.Replace(new ChangeHPEvent());
