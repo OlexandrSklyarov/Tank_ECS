@@ -22,10 +22,10 @@ namespace SA.Tanks
 
             foreach (var id in aimingFilter)
             {
-                ref var inputEvent = ref aimingFilter.Get1(id);
+                ref var aiming = ref aimingFilter.Get1(id);
                 var playerEntity = aimingFilter.GetEntity(id);
 
-                inputEvent.AimPosition = Vector3.zero;
+                aiming.AimPosition = Vector3.zero;
 
                 //если нажата п.к.м
                 if (isRightMousePressed)
@@ -35,7 +35,7 @@ namespace SA.Tanks
                     //если луч что либо пересёк, устанавливаем точку прицеливания
                     if (Physics.Raycast(ray, out RaycastHit hit, StaticPrm.Input.MAX_SHOOT_DISTANCE))
                     {
-                        inputEvent.AimPosition = hit.point;
+                        aiming.AimPosition = hit.point;
                     }
 
                     if (isLeftMouseDown)

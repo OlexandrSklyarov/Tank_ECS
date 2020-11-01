@@ -14,10 +14,10 @@ namespace SA.Tanks.Extensions.PoolGameObject
             switch (tankType)
             {
                 case TankType.TANK_1:
-                    container = pool.Tank_1;
+                    container = pool.TankGreen;
                     break;
                 case TankType.TANK_2:
-                    container = pool.Tank_2;
+                    container = pool.TankRed;
                     break;
                 default:
                     throw new Exception($"{typeof(PoolExtension)} => TankType: {tankType} No pool was found with this type");
