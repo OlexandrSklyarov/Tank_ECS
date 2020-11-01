@@ -11,6 +11,7 @@ namespace SA.Tanks
 
         readonly EcsWorld _world;
         readonly Transform[] enemySpawnPoints;
+        readonly Transform[] waitpoints;
         readonly DataGame dataGame;
         readonly Camera mainCamera;
         readonly GamePool pool;
@@ -46,7 +47,7 @@ namespace SA.Tanks
        
         void CreateEnemy(Transform point)
         {           
-            builder.Setup(_world, dataGame, mainCamera, pool);
+            builder.Setup(_world, dataGame, mainCamera, pool, waitpoints);
 
             builder.Create(point.position, point.rotation);  
             builder.SetUnitComponent();
@@ -57,6 +58,7 @@ namespace SA.Tanks
             builder.SetMoveComponent();
             builder.SetTurretComponent();
             builder.SetWeaponComponent(); 
+            builder.SetBraineComponent();
         }        
 
         #endregion

@@ -23,17 +23,10 @@ namespace SA.Tanks.Services
         #endregion       
 
 
-        public abstract void SetUnitComponent();
-
-
-        public virtual void Setup(EcsWorld world, DataGame dataGame, Camera mainCamera, GamePool pool)
-        {
-            this.world = world;
-            dataTank = dataGame.PlayerTank;
-            weapon = dataGame.SimpleTankWeapon;
-            this.mainCamera = mainCamera;
-            this.pool = pool;               
-        }
+        public abstract void SetUnitComponent();     
+        
+           
+        public abstract void SetBraineComponent();
 
 
         public void Reset()
@@ -144,9 +137,6 @@ namespace SA.Tanks.Services
             });
         }
 
-        public void SetBraineComponent()
-        {
-            Debug.Log("Brain => player controls !!!");
-        }
+        
     }
 }

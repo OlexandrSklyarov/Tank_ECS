@@ -13,6 +13,7 @@ namespace SA.Tanks
         [SerializeField] DataGame dataGame;
         [SerializeField] DataLevel dataLevel;
         [SerializeField] Transform[] enemySpawnPoints;
+        [SerializeField] Transform[] waitpoints;
 
         EcsWorld world;
         EcsSystems updateSystems;
@@ -30,7 +31,7 @@ namespace SA.Tanks
         void Awake()
         {
             //проверяем наличие данных игры
-            if(!dataGame) throw new Exception($"{nameof(DataGame)} doesn't exists!");
+            CheckGameData();
 
             world = new EcsWorld();
             updateSystems = new EcsSystems(world);
@@ -41,6 +42,19 @@ namespace SA.Tanks
             RegistrationEvents();
             Injected();
             InitSystems();
+        }
+
+
+        void CheckGameData()
+        {
+            if(!dataGame)
+                throw new Exception($"{nameof(DataGame)} doesn't exists!");
+
+            if(enemySpawnPoints == null || enemySpawnPoints.Length < 1) 
+                throw new Exception($"EnemySpawnPoints doesn't exists!");
+            
+            if(waitpoints == null || waitpoints.Length < 1) 
+                throw new Exception($"Waitpoints doesn't exists!");            
         }
 
 
@@ -56,6 +70,7 @@ namespace SA.Tanks
                 .Add(new InitEnemySpawnController())
                 .Add(new EnemyCountObserverSystem())
                 .Add(new EnemySpawnSystem())
+                .Add(new AIUpdateSystem())
 
                 //Weapon
                 .Add(new AimingSystem())
@@ -99,6 +114,7 @@ namespace SA.Tanks
                 .Inject(dataLevel)
                 .Inject(mainCamera)
                 .Inject(enemySpawnPoints)
+                .Inject(waitpoints)
                 .Inject(new GamePool())
                 .Inject(new PlayerTankBuilder())
                 .Inject(new EnemyTankBuilder())

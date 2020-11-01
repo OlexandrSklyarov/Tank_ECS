@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9089033779778405079}
   - component: {fileID: -2581729401554117789}
   - component: {fileID: 6185920174458454210}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TankGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
