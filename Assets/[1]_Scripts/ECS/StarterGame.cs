@@ -16,6 +16,8 @@ namespace SA.Tanks
 
         EcsWorld world;
         EcsSystems updateSystems;
+       
+
         //EcsSystems fixUpdateSystems;
 
         Camera mainCamera;
@@ -32,7 +34,7 @@ namespace SA.Tanks
 
             world = new EcsWorld();
             updateSystems = new EcsSystems(world);
-
+           
             mainCamera = Camera.main;
 
             AddSystems();
@@ -97,7 +99,9 @@ namespace SA.Tanks
                 .Inject(dataLevel)
                 .Inject(mainCamera)
                 .Inject(enemySpawnPoints)
-                .Inject(new GamePoolObject())
+                .Inject(new GamePool())
+                .Inject(new PlayerTankBuilder())
+                .Inject(new EnemyTankBuilder())
                 .ProcessInjects();
         }
 

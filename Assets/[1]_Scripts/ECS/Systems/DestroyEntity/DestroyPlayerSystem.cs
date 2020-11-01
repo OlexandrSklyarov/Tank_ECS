@@ -12,7 +12,7 @@ namespace SA.Tanks
         #region Var
 
         readonly EcsWorld _world;
-        readonly GamePoolObject pool;
+        readonly GamePool pool;
 
         readonly EcsFilter<DestroyComponentEvent, PoolObjectComponent, PlayerComponent> playerTankFilter;
 

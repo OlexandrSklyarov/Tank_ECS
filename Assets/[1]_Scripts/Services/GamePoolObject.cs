@@ -2,13 +2,13 @@
 
 namespace SA.Tanks.Services
 {
-    public class GamePoolObject
+    public class GamePool
     {     
         public PoolContainer Bullet { get; }
         public PoolContainer TankGreen { get; }
         public PoolContainer TankRed { get; }
 
-        public GamePoolObject()
+        public GamePool()
         {
             Bullet = PoolContainer.CreatePool<PoolObject>(StaticPrm.PoolPath.PATH_BULLET);
             TankGreen = PoolContainer.CreatePool<PoolObject>(StaticPrm.PoolPath.PATH_TANK_GREEN);

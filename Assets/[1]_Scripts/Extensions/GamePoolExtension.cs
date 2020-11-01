@@ -7,7 +7,7 @@ namespace SA.Tanks.Extensions.PoolGameObject
 {
     public static class PoolExtension
     {
-        public static PoolContainer GetTankPool(this GamePoolObject pool, TankType tankType)
+        public static PoolContainer GetTankPool(this GamePool pool, TankType tankType)
         {
             PoolContainer container;
 

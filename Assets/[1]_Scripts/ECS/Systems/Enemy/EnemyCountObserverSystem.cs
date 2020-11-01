@@ -1,6 +1,4 @@
-﻿
-using System;
-using Leopotam.Ecs;
+﻿using Leopotam.Ecs;
 using UnityEngine;
 using System.Linq;
 using SA.Tanks.Extensions.UnityComponents;

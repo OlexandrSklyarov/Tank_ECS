@@ -11,7 +11,7 @@ namespace SA.Tanks
         #region Var
 
         readonly EcsWorld _world;
-        readonly GamePoolObject pool;
+        readonly GamePool pool;
         readonly EcsFilter<WaponComponent, ShootingEvent> shooterFilter;
 
         #endregion
