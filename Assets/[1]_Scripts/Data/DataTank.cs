@@ -42,7 +42,7 @@ namespace SA.Tanks.Data
 
     public enum TankType
     {
-        TANK_1, TANK_2
+        TANK_GREEN, TANK_RED, TANK_PURPLE
     }
 }
 
