@@ -1,9 +1,7 @@
 ﻿using Leopotam.Ecs;
-using SA.Tanks;
-using SA.Tanks.Extensions.UnityComponents;
 using UnityEngine;
 
-namespace SpaceInvadersLeoEcs.UnityComponents
+namespace SA.Tanks.Extensions.UnityComponents
 {
     public class BulletCollisionNotifier : EcsUnityNotifierBase
     {

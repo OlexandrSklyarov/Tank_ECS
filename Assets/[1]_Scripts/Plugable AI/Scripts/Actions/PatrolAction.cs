@@ -12,11 +12,11 @@ public class PatrolAction : Action
 
     void Patrol(StateController controller)
     {
-        var agent = controller.navMeshAgent;
+        var agent = controller.NavMeshAgent;
 
         agent.destination = 
             controller
-            .waitpoints[controller.nextWayPoint]
+            .Waitpoints[controller.nextWayPoint]
             .position;
 
         agent.Resume();    
@@ -25,7 +25,7 @@ public class PatrolAction : Action
 
         if(agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
         {
-            controller.nextWayPoint = (controller.nextWayPoint + 1) % controller.waitpoints.Length;
+            controller.nextWayPoint = (controller.nextWayPoint + 1) % controller.Waitpoints.Length;
             Debug.Log("Set new waypoint");
         }
     }

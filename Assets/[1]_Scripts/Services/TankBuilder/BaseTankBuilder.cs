@@ -40,7 +40,7 @@ namespace SA.Tanks.Services
             //создаём сущьность
             Reset();
 
-            //создаём объект и инициализируем компоненты
+            //создаём объект
             poolGO = pool.GetTankPool(dataTank.TankType).Get();
             poolGO.PoolTransform.position = pos;
             poolGO.PoolTransform.rotation = rot;

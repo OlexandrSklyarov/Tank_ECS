@@ -13,7 +13,7 @@ public class ScanDecision : Decision
 
     bool Scan(StateController controller)
     {        
-        controller.navMeshAgent.isStopped = true;
+        controller.NavMeshAgent.isStopped = true;
         var turnSpeed = controller.enemyStats.SearchingTurnSpeed * Time.deltaTime;
         controller.transform.Rotate(0f, turnSpeed, 0f);
 

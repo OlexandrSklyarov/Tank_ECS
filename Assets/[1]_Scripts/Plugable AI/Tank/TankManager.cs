@@ -35,7 +35,7 @@ namespace SA.Tank
             {
                 var prefab = es.tankEnemyPrefab;
                 var enemy = Instantiate(es.tankEnemyPrefab, es.enemySpawnPoint.position, Quaternion.identity);
-                enemy.GetComponent<StateController>().SetupAI(true, wayPoints);
+                //enemy.GetComponent<StateController>().SetupAI(true, wayPoints);
             }
         }
     }

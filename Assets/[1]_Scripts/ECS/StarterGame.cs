@@ -148,9 +148,6 @@ namespace SA.Tanks
             updateSystems.Destroy();
             updateSystems = null;
 
-            //fixUpdateSystems.Destroy();
-            //fixUpdateSystems = null;
-
             world.Destroy();
             world = null;
         }

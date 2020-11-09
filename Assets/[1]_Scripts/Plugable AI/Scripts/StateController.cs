@@ -1,10 +1,20 @@
 using UnityEngine;
 using UnityEngine.AI;
-using SA.TankShooting;
+using Leopotam.Ecs;
 
 public class StateController : MonoBehaviour
 {
-    #region Var
+    #region Properties
+    
+    public NavMeshAgent NavMeshAgent { get; private set; }
+    public EcsEntity Entity { get; private set; }
+    public Transform[] Waitpoints { get; private set; }
+    public float StateTimeElapsed { get; private set; }
+    
+    #endregion
+
+
+    #region Var    
 
     public State currentState;
     public State remainState;
@@ -12,12 +22,10 @@ public class StateController : MonoBehaviour
     public Transform eyes;
     public LayerMask playerLayer;
 
-    [HideInInspector] public NavMeshAgent navMeshAgent;
-    [HideInInspector] public TankShooting tankShooting;
-    [HideInInspector] public Transform[] waitpoints;
+    
     [HideInInspector] public int nextWayPoint;
     [HideInInspector] public Transform chaseTarget;
-    [HideInInspector] public float stateTimeElapsed;
+    
 
     bool isAIAction;
 
@@ -26,24 +34,26 @@ public class StateController : MonoBehaviour
 
     void Awake()
     {
-        tankShooting = GetComponent<TankShooting>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        NavMeshAgent = GetComponent<NavMeshAgent>();
     }
 
 
-    public void SetupAI(bool isAIAction, Transform[] wayPointList)
-    {
-        this.waitpoints = wayPointList;
+    public void SetupAI(bool isAIAction, Transform[] wayPointList, ref EcsEntity entity)
+    {        
         this.isAIAction = isAIAction;
+        NavMeshAgent.enabled = isAIAction;
 
-        navMeshAgent.enabled = isAIAction;
+        Waitpoints = wayPointList;
+        Entity = entity;        
     }
 
 
     public void Tick()
     {
         if (isAIAction)
+        {
             currentState.UpdateState(this);
+        }            
     }
 
 
@@ -60,22 +70,25 @@ public class StateController : MonoBehaviour
     public void TransitionToState(State nextState)
     {
         if (nextState != remainState)
-        {
-            currentState = nextState;
+        {       
+            if (nextState != currentState) 
+                OnExitState();  
+
+            currentState = nextState;            
         }
     }
 
 
     public bool IsCheckCountDownElapsed(float duration)
     {
-        stateTimeElapsed += Time.deltaTime;
-        return (stateTimeElapsed >= duration);
+        StateTimeElapsed += Time.deltaTime;
+        return (StateTimeElapsed >= duration);
     }
 
 
     void OnExitState()
     {
-        stateTimeElapsed = 0f;
+        StateTimeElapsed = 0f;
     }
 
 }
