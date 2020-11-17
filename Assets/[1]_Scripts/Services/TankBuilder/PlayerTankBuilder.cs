@@ -1,6 +1,7 @@
 using Leopotam.Ecs;
 using SA.Tanks.Data;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace SA.Tanks.Services
 {
@@ -33,9 +34,16 @@ namespace SA.Tanks.Services
         }
 
 
+        public override void SetMoveComponent()
+        {
+            base.SetMoveComponent();
+            poolGO.PoolTransform.GetComponent<NavMeshAgent>().enabled = false;
+        }
+
+
         public override void SetBraineComponent()
         {
-            Debug.Log("Brain => player control!!!");
+            Debug.Log("Brain => player control!!!");            
         }
     }
 }

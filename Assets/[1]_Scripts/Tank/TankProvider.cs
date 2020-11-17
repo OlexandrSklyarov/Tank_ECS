@@ -9,6 +9,7 @@ public class TankProvider : MonoBehaviour
     public Image HPBar => hpBar;
     public Transform FirePoint => firePoint;
     public Transform TankTurret => tankTurret;
+    public Transform Eyes => eyes;
 
     #endregion
 
@@ -23,6 +24,10 @@ public class TankProvider : MonoBehaviour
     [Header("[Weapon]")]
     [SerializeField] Transform firePoint;
     [SerializeField] Transform tankTurret;
+
+    [Space]
+    [Header("[AI]")]
+    [SerializeField] Transform eyes;
 
     #endregion
 }

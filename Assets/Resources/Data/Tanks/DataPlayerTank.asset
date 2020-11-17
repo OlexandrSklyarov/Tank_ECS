@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: DataPlayerTank
   m_EditorClassIdentifier: 
   tankType: 0
-  hp: 100
+  hp: 1000
   maxHp: 100
   moveSpeed: 7
   rotateSpeed: 3
   cameraPivotPosition: {x: 0, y: 8, z: -5}
   turretSpeedRotate: 10
   turretMinDistance: 4
+  botStats: {fileID: 11400000, guid: 6ef537be4ed514560bb9385581bced5c, type: 2}
+  startState: {fileID: 11400000, guid: 2a530666b7be356a5b6ff22d76ef3452, type: 2}
+  remainState: {fileID: 11400000, guid: fd2b7a188e326aacabebb93775c9d21c, type: 2}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256

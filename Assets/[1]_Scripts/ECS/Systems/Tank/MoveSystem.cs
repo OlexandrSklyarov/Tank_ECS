@@ -7,38 +7,33 @@ namespace SA.Tanks
     {
         #region Var
 
-        readonly EcsFilter<MoveComponent> moveFilter;       
+        readonly EcsFilter<MoveComponent, InputMoveDirectionEvent> moveFilter;       
 
         #endregion
 
 
         public void Run()
         {
-            PlayerMoving();
-        }
-
-
-        void PlayerMoving()
-        {
-            foreach (var i in moveFilter)
+            foreach (var id in moveFilter)
             {
-                ref var moveComponent = ref moveFilter.Get1(i);
+                ref var moveComponent = ref moveFilter.Get1(id);
+                ref var input = ref moveFilter.Get2(id);
 
-                Move(ref moveComponent);
-                Rotate(ref moveComponent);                
+                Move(ref moveComponent, ref input);
+                Rotate(ref moveComponent, ref input);                
             }
         }
 
 
-        void Move(ref MoveComponent move)
+        void Move(ref MoveComponent move, ref InputMoveDirectionEvent input)
         {
             var forward = move.RB.transform.position
-                    + move.RB.transform.forward
-                    * move.Direction.y
-                    * move.MoveSpeed * Time.deltaTime;
+                        + move.RB.transform.forward
+                        * input.Vertical
+                        * move.MoveSpeed * Time.deltaTime;
 
             //Drag
-            if (move.Direction.magnitude > move.MinDrag)
+            if (forward.magnitude > move.MinDrag)
             {
                 move.RB.drag = move.MinDrag;
             }
@@ -52,9 +47,9 @@ namespace SA.Tanks
         }        
 
 
-        void Rotate(ref MoveComponent move)
+        void Rotate(ref MoveComponent move, ref InputMoveDirectionEvent input)
         {
-            var verticalRot = move.Direction.x * move.RotateSpeed;
+            var verticalRot = input.Horizontal * move.RotateSpeed;
 
             var rotation = move.RB.transform.rotation
                 * Quaternion.Euler(0f, verticalRot, 0f);

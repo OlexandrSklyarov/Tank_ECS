@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 7617574639938528108}
   - component: {fileID: -558126538053361841}
   - component: {fileID: 3541508655061922002}
-  - component: {fileID: -8779708026192584045}
   m_Layer: 0
   m_Name: TankPurple
   m_TagString: Untagged
@@ -143,31 +142,7 @@ MonoBehaviour:
   hpBar: {fileID: 7075753830012500410}
   firePoint: {fileID: 8639416291084619922}
   tankTurret: {fileID: 2716410920973505306}
---- !u!114 &-8779708026192584045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8578106769476865678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5a7dd6f19bfe635c8b601f05cb35405, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: {fileID: 11400000, guid: 56f6337e08c8ee72595e43d579319f0a, type: 2}
-  remainState: {fileID: 11400000, guid: c5e18293ce92803929bdf04b8019206d, type: 2}
-  enemyStats: {fileID: 11400000, guid: fe0af14b3f28b19c4af805cc817a961d, type: 2}
   eyes: {fileID: 8639416291084619922}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  navMeshAgent: {fileID: 0}
-  tankShooting: {fileID: 0}
-  waitpoints: []
-  nextWayPoint: 0
-  chaseTarget: {fileID: 0}
-  stateTimeElapsed: 0
 --- !u!1001 &3157460382338224327
 PrefabInstance:
   m_ObjectHideFlags: 0

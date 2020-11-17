@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using SA.Tanks.FSM;
 
 namespace SA.Tanks.Data
 {
@@ -16,6 +17,10 @@ namespace SA.Tanks.Data
         public Vector3 CameraPivotPosition => cameraPivotPosition;
         public float TurretSpeedRotate => turretSpeedRotate;
         public float TurretMinDistance => turretMinDistance;
+        public BotStats BotStats => botStats;
+        public StateFSM StartState => startState;
+        public StateFSM RemainState => remainState;
+        public LayerMask PlayerLayer => playerLayer;
 
         #endregion
 
@@ -34,6 +39,13 @@ namespace SA.Tanks.Data
         [Header("Turret")]
         [SerializeField] [Range(1f, 15f)] float turretSpeedRotate;
         [SerializeField] [Range(1f, 15f)] float turretMinDistance;
+
+        [Space]
+        [Header("FSM")]
+        [SerializeField] BotStats botStats;
+        [SerializeField] StateFSM startState;
+        [SerializeField] StateFSM remainState;
+        [SerializeField] LayerMask playerLayer;
 
         #endregion
 

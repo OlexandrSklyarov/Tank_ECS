@@ -43,13 +43,18 @@ namespace SA.Tanks.Services
         
         public override void SetBraineComponent()
         {
-            var stateController = poolGO.PoolTransform.GetComponent<StateController>();
-            stateController.SetupAI(true, waitpoints, ref entity);
+            var provider = poolGO.PoolTransform.GetComponent<TankProvider>();
 
             entity.Replace(new BrainAIComponent()
             {
                 Agent = poolGO.PoolTransform.GetComponent<NavMeshAgent>(),
-                StateController = stateController
+                Waitpoints = waitpoints,
+                Eyes = provider.Eyes,
+                ChaseTarget = null, 
+                CurrentState = dataTank.StartState,
+                RemainState = dataTank.RemainState,
+                EnemyStats = dataTank.BotStats,
+                PlayerLayer = dataTank.PlayerLayer
             });
         }
     }

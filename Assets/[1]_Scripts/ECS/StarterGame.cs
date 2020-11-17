@@ -103,7 +103,8 @@ namespace SA.Tanks
                 .OneFrame<DestroyComponentEvent>()
                 .OneFrame<DamageComponentEvent>()
                 .OneFrame<ShootingEvent>()
-                .OneFrame<ChangeHPEvent>();
+                .OneFrame<ChangeHPEvent>()
+                .OneFrame<InputMoveDirectionEvent>();
         }
 
 

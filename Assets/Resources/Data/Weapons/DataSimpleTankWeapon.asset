@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DataSimpleTankWeapon
   m_EditorClassIdentifier: 
   prefab: {fileID: 112784783533230196, guid: db395027ee187a7679f63ae21d63da28, type: 3}
-  speed: 100
+  speed: 50
   damage: 20
   reloadTime: 1

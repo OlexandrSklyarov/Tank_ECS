@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4415208582392295752}
   - component: {fileID: 4415208582392295753}
   - component: {fileID: 4415208582392295755}
-  - component: {fileID: 9089033779778405079}
+  - component: {fileID: 2300027018740627635}
   - component: {fileID: -2581729401554117789}
+  - component: {fileID: 9089033779778405079}
   - component: {fileID: 6185920174458454210}
   m_Layer: 8
   m_Name: TankGreen
@@ -66,18 +67,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 32
   m_CollisionDetection: 0
---- !u!114 &9089033779778405079
-MonoBehaviour:
+--- !u!195 &2300027018740627635
+NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4415208582392295758}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b450e35240844624a0d856e6d3579cb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_Radius: 2.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &-2581729401554117789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,6 +99,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6659cd49072942239f080d8697735d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9089033779778405079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4415208582392295758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b450e35240844624a0d856e6d3579cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6185920174458454210
@@ -106,6 +129,7 @@ MonoBehaviour:
   hpBar: {fileID: 91332017149168905}
   firePoint: {fileID: 3540736805050229974}
   tankTurret: {fileID: 5901808083453735923}
+  eyes: {fileID: 3540736805050229974}
 --- !u!1001 &1113840882969613952
 PrefabInstance:
   m_ObjectHideFlags: 0

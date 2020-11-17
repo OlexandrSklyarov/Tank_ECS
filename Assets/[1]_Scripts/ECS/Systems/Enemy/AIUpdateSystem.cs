@@ -11,8 +11,12 @@ namespace SA.Tanks
         {    
             foreach (var id in aiFilter)
             {                
-                var brain = aiFilter.Get2(id);
-                brain.StateController.Tick();
+                ref var entity = ref aiFilter.GetEntity(id);
+                ref var brain = ref aiFilter.Get2(id);
+
+                var curState = brain.CurrentState;
+
+                curState.UpdateState(ref brain, ref entity);
             }
         }
     }

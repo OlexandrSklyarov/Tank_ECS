@@ -70,7 +70,7 @@ namespace SA.Tanks.Services
         }
 
 
-        public void SetMoveComponent()
+        public virtual void SetMoveComponent()
         {
             //получаем компонент Rigidbody
             var rb = poolGO.PoolTransform.GetComponent<Rigidbody>();

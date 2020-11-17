@@ -584,7 +584,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    1: DEBUG
+    1: DEBUG_GIZMO
   platformArchitecture: {}
   scriptingBackend:
     Standalone: 1
