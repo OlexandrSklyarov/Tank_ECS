@@ -71,6 +71,7 @@ namespace SA.Tanks
                 .Add(new EnemyCountObserverSystem())
                 .Add(new EnemySpawnSystem())
                 .Add(new AIUpdateSystem())
+                .Add(new EnemyAimingSystem())
 
                 //Weapon
                 .Add(new AimingSystem())

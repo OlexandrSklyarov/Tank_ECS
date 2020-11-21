@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ecfdd944ff663c2790037eb5a71e334, type: 3}
   m_Name: BotStats
   m_EditorClassIdentifier: 
-  lookSphereCastRadius: 1
-  lookRange: 5
-  attackRange: 5
+  lookSphereCastRadius: 15
+  lookRange: 20
+  attackRange: 10
   attackRate: 2
   attackForce: 2
-  searchingTurnSpeed: 2
-  searchDuration: 5
+  searchingTurnSpeed: 10
+  searchDuration: 7
