@@ -14,13 +14,16 @@ namespace SA.Tanks.FSM
 
         void Scan(ref BrainAIComponent brain, ref EcsEntity entity)
         {
-            brain.Agent.isStopped = true;
-            var turnSpeed = brain.EnemyStats.SearchingTurnSpeed * Time.deltaTime;
-
-            entity.Replace(new InputMoveDirectionEvent()
+            if(brain.Agent.enabled)
             {
-                Vertical = 1f
-            });
+                brain.Agent.isStopped = true;
+                brain.Agent.enabled = false;
+            }              
+
+            var turnSpeed = brain.EnemyStats.SearchingTurnSpeed * Time.deltaTime;
+            
+            var rb = entity.Get<MoveComponent>().RB;
+            rb.transform.Rotate(new Vector3(0f, rb.transform.rotation.y + turnSpeed, 0f));
         }
     }
 }

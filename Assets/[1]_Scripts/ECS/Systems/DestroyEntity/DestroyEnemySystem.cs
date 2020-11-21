@@ -38,7 +38,6 @@ namespace SA.Tanks
 
                     //меняем счетчик врагов на уровне
                     enemyCount.EnemyExistCount--;
-                    Debug.Log($"Enemys: {enemyCount.EnemyExistCount}");
                 }
             }
         }

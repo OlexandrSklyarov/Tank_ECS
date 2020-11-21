@@ -40,6 +40,13 @@ namespace SA.Tanks.Services
             });
         }
 
+
+        public override void SetMoveComponent()
+        {
+            base.SetMoveComponent();
+            poolGO.PoolTransform.GetComponent<Rigidbody>().isKinematic = true;
+        }
+
         
         public override void SetBraineComponent()
         {

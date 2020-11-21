@@ -25,6 +25,7 @@ namespace SA.Tanks.Services
             var pivot = new GameObject("Pivot");
             pivot.transform.SetParent(tr);
             pivot.transform.localPosition = dataTank.CameraPivotPosition;
+            
             entity.Replace(new PlayerComponent()
             {
                 TankType = dataTank.TankType,

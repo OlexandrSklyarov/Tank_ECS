@@ -13,9 +13,9 @@ namespace SA.Tanks.FSM
 
 
         void Chase(ref BrainAIComponent brain, ref EcsEntity entity)
-        {
+        {     
+            brain.Agent.enabled = true;
             brain.Agent.destination = brain.ChaseTarget.position;
-            brain.Agent.Resume();
         }
     }
 }

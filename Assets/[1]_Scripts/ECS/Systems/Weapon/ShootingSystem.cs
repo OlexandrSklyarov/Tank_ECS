@@ -26,7 +26,6 @@ namespace SA.Tanks
                 if (weapon.LastFireTime > 0f)
                 {
                     weapon.LastFireTime -= Time.deltaTime * 1f;
-                    Debug.Log($"Reload time: {weapon.LastFireTime}");
                 }
                 else
                 {

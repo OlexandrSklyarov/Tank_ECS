@@ -13,22 +13,21 @@ namespace SA.Tanks.FSM
 
 
         void Patrol(ref BrainAIComponent brain, ref EcsEntity entity)
-        {
+        {            
             var agent = brain.Agent;
+
+            agent.enabled = true;
 
             agent.destination = 
                 brain
                 .Waitpoints[brain.NextWayPoint]
                 .position;
 
-            agent.Resume();    
-
             var distToPoint = (agent.destination - agent.transform.position).magnitude;
 
             if(agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
             {
                 brain.NextWayPoint = (brain.NextWayPoint + 1) % brain.Waitpoints.Length;
-                Debug.Log("Set new waypoint");
             }
         }
         

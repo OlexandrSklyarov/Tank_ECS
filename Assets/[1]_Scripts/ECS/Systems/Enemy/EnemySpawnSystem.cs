@@ -39,7 +39,6 @@ namespace SA.Tanks
                     //изменяем счёт танков на поле
                     num.EnemyExistCount++;
                     num.RemnantEnemies--;
-                    Debug.Log($"Enemys: {num.EnemyExistCount}");
                 }
             }
         }

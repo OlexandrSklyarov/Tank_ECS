@@ -15,7 +15,7 @@ namespace SA.Tanks.FSM
 
         void Attack(ref BrainAIComponent brain, ref EcsEntity entity)
         {
-            #if DEBUG_GIZMO
+            #if DEBUG
             Debug.DrawRay(  brain.Eyes.position, 
                             brain.Eyes.forward * brain.EnemyStats.AttackRange, 
                             Color.red);
@@ -39,7 +39,6 @@ namespace SA.Tanks.FSM
         private void Fire(ref EcsEntity entity)
         {
             entity.Replace(new ShootingEvent());
-            Debug.Log("Fire action!!!");  
         }
     }
 }
