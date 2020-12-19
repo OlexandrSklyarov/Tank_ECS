@@ -74,7 +74,6 @@ namespace SA.Tanks
                 .Add(new EnemyAimingSystem())
 
                 //Weapon
-                .Add(new AimingSystem())
                 .Add(new ShootingSystem())
                 .Add(new WeaponReloadTimeSystem())
 

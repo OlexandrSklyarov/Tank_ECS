@@ -25,7 +25,7 @@ namespace SA.Tanks
                 ref var aiming = ref aimingFilter.Get1(id);
                 var playerEntity = aimingFilter.GetEntity(id);
 
-                aiming.AimPosition = Vector3.zero;
+                aiming.IsTargetExist = false;
 
                 //если нажата п.к.м
                 if (isRightMousePressed)
@@ -36,6 +36,7 @@ namespace SA.Tanks
                     if (Physics.Raycast(ray, out RaycastHit hit, StaticPrm.Input.MAX_SHOOT_DISTANCE))
                     {
                         aiming.AimPosition = hit.point;
+                        aiming.IsTargetExist = true;
                     }
 
                     if (isLeftMouseDown)
