@@ -77,11 +77,7 @@ namespace SA.Tanks
 
                 //Weapon
                 .Add(new ShootingSystem())
-                .Add(new WeaponReloadTimeSystem())
-
-                // //Tank
-                // .Add(new TankTurretRotateSystem())
-                // .Add(new MoveSystem())
+                .Add(new WeaponReloadTimeSystem())                
 
                 //Camera
                 .Add(new InitCameraFollowSystem())
