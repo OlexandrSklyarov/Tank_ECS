@@ -17,6 +17,7 @@ namespace SA.Tanks
 
         EcsWorld world;
         EcsSystems updateSystems;
+        EcsSystems fixedSystems;
        
 
         //EcsSystems fixUpdateSystems;
@@ -35,6 +36,7 @@ namespace SA.Tanks
 
             world = new EcsWorld();
             updateSystems = new EcsSystems(world);
+            fixedSystems = new EcsSystems(world);
            
             mainCamera = Camera.main;
 
@@ -77,9 +79,9 @@ namespace SA.Tanks
                 .Add(new ShootingSystem())
                 .Add(new WeaponReloadTimeSystem())
 
-                //Tank
-                .Add(new TankTurretRotateSystem())
-                .Add(new MoveSystem())
+                // //Tank
+                // .Add(new TankTurretRotateSystem())
+                // .Add(new MoveSystem())
 
                 //Camera
                 .Add(new InitCameraFollowSystem())
@@ -93,6 +95,11 @@ namespace SA.Tanks
 
                 //UI
                 .Add(new ChangeTankHealthBarSystem());
+            
+            fixedSystems
+                //Tank
+                .Add(new TankTurretRotateSystem())
+                .Add(new MoveSystem());
         }
 
 
@@ -103,7 +110,9 @@ namespace SA.Tanks
                 .OneFrame<DestroyComponentEvent>()
                 .OneFrame<DamageComponentEvent>()
                 .OneFrame<ShootingEvent>()
-                .OneFrame<ChangeHPEvent>()
+                .OneFrame<ChangeHPEvent>();
+
+            fixedSystems
                 .OneFrame<InputMoveDirectionEvent>();
         }
 
@@ -120,12 +129,18 @@ namespace SA.Tanks
                 .Inject(new PlayerTankBuilder())
                 .Inject(new EnemyTankBuilder())
                 .ProcessInjects();
+            
+            fixedSystems
+                .Inject(dataGame)
+                .ProcessInjects();
+
         }
 
 
         void InitSystems()
         {
             updateSystems.Init();
+            fixedSystems.Init();
         }
 
         #endregion
@@ -133,10 +148,14 @@ namespace SA.Tanks
 
         #region Update   
 
-
-        void FixedUpdate()
+        void Update()
         {
             updateSystems.Run();
+        }
+
+        void FixedUpdate()
+        {            
+            fixedSystems.Run();
         }
 
         #endregion
@@ -149,6 +168,9 @@ namespace SA.Tanks
             updateSystems.Destroy();
             updateSystems = null;
 
+            fixedSystems.Destroy();
+            fixedSystems = null;
+                       
             world.Destroy();
             world = null;
         }
