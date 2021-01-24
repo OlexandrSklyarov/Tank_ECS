@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace SA.Tanks
 {
-    public struct PlayerInputAimingSystem : IEcsRunSystem
+    public struct PlayerAimingSystem : IEcsRunSystem
     {
         #region Var
 
-        readonly EcsFilter<AimingComponent, PlayerComponent> aimingFilter;
+        readonly EcsFilter<AimingComponent, AimingEvent, PlayerComponent> aimingFilter;
         readonly Camera mainCamera;
 
         #endregion
@@ -16,19 +16,19 @@ namespace SA.Tanks
 
         public void Run()
         {
-            var isLeftMouseDown = Input.GetMouseButtonDown(0);
-            var isRightMousePressed = Input.GetMouseButton(1);
+            
             var mousePosition = Input.mousePosition;
 
             foreach (var id in aimingFilter)
             {
                 ref var aiming = ref aimingFilter.Get1(id);
+                var inputEvent = aimingFilter.Get2(id);
                 var playerEntity = aimingFilter.GetEntity(id);
 
                 aiming.IsTargetExist = false;
 
-                //если нажата п.к.м
-                if (isRightMousePressed)
+                //если прицеливаемся
+                if (inputEvent.IsAiming)
                 {
                     var ray = mainCamera.ScreenPointToRay(mousePosition);
 
@@ -39,7 +39,8 @@ namespace SA.Tanks
                         aiming.IsTargetExist = true;
                     }
 
-                    if (isLeftMouseDown)
+                    //если нажимаем выстрел
+                    if (inputEvent.IsFire)
                     {
                         playerEntity.Get<ShootingEvent>();
                     }

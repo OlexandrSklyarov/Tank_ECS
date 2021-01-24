@@ -65,8 +65,8 @@ namespace SA.Tanks
             updateSystems
                 //Player
                 .Add(new PalayerInitSystem())
-                .Add(new PlayerInputAimingSystem())
-                .Add(new PlayerInputMoveSystem())
+                .Add(new PlayerInputSystem())
+                .Add(new PlayerAimingSystem())                
 
                 //Enemy
                 .Add(new InitEnemySpawnController())
