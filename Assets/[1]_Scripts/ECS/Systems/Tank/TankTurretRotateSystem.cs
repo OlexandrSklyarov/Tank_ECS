@@ -33,7 +33,7 @@ namespace SA.Tanks
 
                 //получаем поворот к цели, если она есть и она не слишком близко
                 if (aiming.IsTargetExist &&
-                    Vector3.Distance(turret.Target, turret.TurretTransform.position) > MAX_DIST_TO_TARGET)
+                    Vector3.Distance(aiming.AimPosition, turret.TurretTransform.position) > MAX_DIST_TO_TARGET)
                 {
                     //поворачиваем башню вокруг вертикальной оси танка (локально) 
                     

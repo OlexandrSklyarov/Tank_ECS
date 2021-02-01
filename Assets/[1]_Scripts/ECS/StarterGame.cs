@@ -19,9 +19,6 @@ namespace SA.Tanks
         EcsSystems updateSystems;
         EcsSystems fixedSystems;
        
-
-        //EcsSystems fixUpdateSystems;
-
         Camera mainCamera;
 
         #endregion

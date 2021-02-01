@@ -23,9 +23,7 @@ namespace SA.Tanks
             {
                 ref var aiming = ref aimingFilter.Get1(id);
                 var inputEvent = aimingFilter.Get2(id);
-                var playerEntity = aimingFilter.GetEntity(id);
-
-                aiming.IsTargetExist = false;
+                var playerEntity = aimingFilter.GetEntity(id);               
 
                 //если прицеливаемся
                 if (inputEvent.IsAiming)
@@ -44,6 +42,10 @@ namespace SA.Tanks
                     {
                         playerEntity.Get<ShootingEvent>();
                     }
+                }
+                else
+                {
+                    aiming.IsTargetExist = false;
                 }
             }
         }
