@@ -32,8 +32,7 @@ namespace SA.Tanks
                 var speed = turret.RotateSpeed * Time.deltaTime; 
 
                 //получаем поворот к цели, если она есть и она не слишком близко
-                if (aiming.IsTargetExist &&
-                    Vector3.Distance(aiming.AimPosition, turret.TurretTransform.position) > MAX_DIST_TO_TARGET)
+                if (Vector3.Distance(aiming.AimPosition, turret.TurretTransform.position) > MAX_DIST_TO_TARGET)
                 {
                     //поворачиваем башню вокруг вертикальной оси танка (локально) 
                     
@@ -41,12 +40,12 @@ namespace SA.Tanks
                     turret.TurretTransform.rotation = Quaternion.Lerp(turret.TurretTransform.rotation, newTurretRotation, speed);
 
                     BarrelRorartion(aiming.AimPosition, turret, ref newBarrelRotation);  
-                    turret.BarrelTransform.rotation = Quaternion.Lerp(turret.BarrelTransform.rotation, newBarrelRotation, speed);                             
+                    turret.BarrelTransform.rotation = Quaternion.Lerp(turret.BarrelTransform.rotation, newBarrelRotation, speed * 0.5f);                             
                 }  
                 else
                 {
                     turret.TurretTransform.rotation = Quaternion.Lerp(turret.TurretTransform.rotation, newTurretRotation, speed);
-                    turret.BarrelTransform.rotation = Quaternion.Lerp(turret.BarrelTransform.rotation, newBarrelRotation, speed);
+                    turret.BarrelTransform.rotation = Quaternion.Lerp(turret.BarrelTransform.rotation, newBarrelRotation, speed * 0.5f);
                 }                     
             }
         }

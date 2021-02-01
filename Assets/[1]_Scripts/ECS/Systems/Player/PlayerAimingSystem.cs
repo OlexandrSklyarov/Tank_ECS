@@ -23,29 +23,20 @@ namespace SA.Tanks
             {
                 ref var aiming = ref aimingFilter.Get1(id);
                 var inputEvent = aimingFilter.Get2(id);
-                var playerEntity = aimingFilter.GetEntity(id);               
+                var playerEntity = aimingFilter.GetEntity(id);             
 
-                //если прицеливаемся
-                if (inputEvent.IsAiming)
+                var ray = mainCamera.ScreenPointToRay(mousePosition);
+
+                //если луч что либо пересёк, устанавливаем точку прицеливания
+                if (Physics.Raycast(ray, out RaycastHit hit, StaticPrm.Input.MAX_SHOOT_DISTANCE))
                 {
-                    var ray = mainCamera.ScreenPointToRay(mousePosition);
-
-                    //если луч что либо пересёк, устанавливаем точку прицеливания
-                    if (Physics.Raycast(ray, out RaycastHit hit, StaticPrm.Input.MAX_SHOOT_DISTANCE))
-                    {
-                        aiming.AimPosition = hit.point;
-                        aiming.IsTargetExist = true;
-                    }
-
-                    //если нажимаем выстрел
-                    if (inputEvent.IsFire)
-                    {
-                        playerEntity.Get<ShootingEvent>();
-                    }
+                    aiming.AimPosition = hit.point;
                 }
-                else
+
+                //если нажимаем выстрел
+                if (inputEvent.IsFire)
                 {
-                    aiming.IsTargetExist = false;
+                    playerEntity.Get<ShootingEvent>();
                 }
             }
         }

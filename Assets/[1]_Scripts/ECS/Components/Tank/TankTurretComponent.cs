@@ -7,6 +7,5 @@ namespace SA.Tanks
         public Transform TurretTransform { get; set; }
         public Transform BarrelTransform { get; set; }
         public float RotateSpeed { get; set; }
-        public float MinDistance { get; set; }
     }
 }

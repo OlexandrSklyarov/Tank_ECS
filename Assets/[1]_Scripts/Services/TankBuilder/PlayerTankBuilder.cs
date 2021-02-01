@@ -7,7 +7,7 @@ namespace SA.Tanks.Services
 {
     public class PlayerTankBuilder : BaseTankBuilder
     {       
-         public virtual void Setup(EcsWorld world, DataGame dataGame, Camera mainCamera, GamePool pool)
+        public virtual void Setup(EcsWorld world, DataGame dataGame, Camera mainCamera, GamePool pool)
         {
             this.world = world;
             dataTank = dataGame.PlayerTank;

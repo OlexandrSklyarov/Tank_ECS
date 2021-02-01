@@ -18,7 +18,7 @@ MonoBehaviour:
   moveSpeed: 13
   rotateSpeed: 5
   cameraPivotPosition: {x: 0, y: 8, z: -5}
-  turretSpeedRotate: 10
+  turretSpeedRotate: 5
   turretMinDistance: 4
   botStats: {fileID: 11400000, guid: 6ef537be4ed514560bb9385581bced5c, type: 2}
   startState: {fileID: 11400000, guid: 2a530666b7be356a5b6ff22d76ef3452, type: 2}

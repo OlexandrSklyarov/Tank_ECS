@@ -27,7 +27,7 @@ namespace SA.Tanks
                     //получаем компонент игрока
                     foreach (var playerid in playerFilter)
                     {                    
-                        ref var player = ref playerFilter.Get1(playerid);
+                        var player = playerFilter.Get1(playerid);
 
                         camera.VirtualCamera.Follow = player.Pivot;
                         camera.VirtualCamera.LookAt = player.RootTransform;
