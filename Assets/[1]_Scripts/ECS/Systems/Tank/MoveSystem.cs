@@ -51,8 +51,7 @@ namespace SA.Tanks
         {
             var verticalRot = input.Horizontal * move.RotateSpeed;
 
-            var rotation = move.RB.transform.rotation
-                * Quaternion.Euler(0f, verticalRot, 0f);
+            var rotation = move.RB.transform.rotation * Quaternion.Euler(0f, verticalRot, 0f);
 
             move.RB.MoveRotation(rotation);
         }
