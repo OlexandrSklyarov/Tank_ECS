@@ -101,7 +101,7 @@ namespace SA.Tanks.Services
             entity.Replace(new TankTurretComponent()
             {
                 TurretTransform = provider.Turret,
-                BarrelTransform = provider.Barrel,
+                BarrelOriginTransform = provider.Barrel,
                 RotateSpeed = dataTank.TurretSpeedRotate
             });
         }

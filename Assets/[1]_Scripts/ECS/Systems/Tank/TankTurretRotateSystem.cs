@@ -40,12 +40,12 @@ namespace SA.Tanks
                     turret.TurretTransform.rotation = Quaternion.Lerp(turret.TurretTransform.rotation, newTurretRotation, speed);
 
                     BarrelRorartion(aiming.AimPosition, turret, ref newBarrelRotation);  
-                    turret.BarrelTransform.rotation = Quaternion.Lerp(turret.BarrelTransform.rotation, newBarrelRotation, speed * 0.5f);                             
+                    //turret.BarrelOriginTransform.rotation = Quaternion.Lerp(turret.BarrelOriginTransform.rotation, newBarrelRotation, speed * 0.5f);                             
                 }  
                 else
                 {
                     turret.TurretTransform.rotation = Quaternion.Lerp(turret.TurretTransform.rotation, newTurretRotation, speed);
-                    turret.BarrelTransform.rotation = Quaternion.Lerp(turret.BarrelTransform.rotation, newBarrelRotation, speed * 0.5f);
+                    //turret.BarrelOriginTransform.rotation = Quaternion.Lerp(turret.BarrelOriginTransform.rotation, newBarrelRotation, speed * 0.5f);
                 }                     
             }
         }
@@ -54,24 +54,30 @@ namespace SA.Tanks
         void TurretRotation(Vector3 aimPosition, TankTurretComponent turret, ref Quaternion newTurretRotation)
         {            
             var direction = aimPosition - turret.TurretTransform.position;   
-            newTurretRotation = Quaternion.LookRotation(direction);
-            var tempRot = newTurretRotation.eulerAngles;
-            tempRot.x = 0f;
-            newTurretRotation = Quaternion.Euler(tempRot);
+            var tempRot = Quaternion.LookRotation(direction);
+            var tempDirection = tempRot.eulerAngles;
+            tempDirection.x = 0f;            
+            newTurretRotation = Quaternion.Euler(tempDirection);
         }
 
 
         private void BarrelRorartion(Vector3 aimPosition, TankTurretComponent turret, ref Quaternion newBarrelRotation)
         {
-            var direction = aimPosition - turret.BarrelTransform.position;  
-            var angle = Vector3.Angle(turret.TurretTransform.forward, direction);
+            // var direction = aimPosition - turret.BarrelOriginTransform.position;  
+            // var angle = Vector3.SignedAngle(direction, turret.TurretTransform.forward, turret.TurretTransform.right);                     
 
-            newBarrelRotation = turret.TurretTransform.rotation;
-
-            if (angle < MAX_BARREL_ROTATE)
-            {
-               newBarrelRotation = Quaternion.LookRotation(direction);               
-            } 
+            // if (Mathf.Abs(angle) < MAX_BARREL_ROTATE)
+            // {
+            //     var projectDirection = Vector3.Project(direction, turret.BarrelOriginTransform.forward );
+            //     projectDirection.y = direction.y;
+            //     var tempRot = Quaternion.LookRotation(projectDirection);   
+            //     tempRot.y = turret.BarrelOriginTransform.rotation.y;
+            //     newBarrelRotation = tempRot;
+            // } 
+            // else
+            // {
+            //     newBarrelRotation = turret.TurretTransform.rotation;
+            // }
         }
 
         #endregion
