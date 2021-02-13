@@ -77,8 +77,9 @@ namespace SA.Tanks
 
             if (Mathf.Abs(angle) < MAX_BARREL_ROTATE)
             {     
-                var myRot = Quaternion.LookRotation(direction, turret.BarrelOriginTransform.up);
-                turret.BarrelOriginTransform.rotation = Quaternion.Lerp(turret.BarrelOriginTransform.rotation, myRot, speed);
+                var tempRot = turret.BarrelOriginTransform.rotation;
+                var myRot = Quaternion.LookRotation(direction, turret.BarrelOriginTransform.up);                     
+                turret.BarrelOriginTransform.rotation = Quaternion.Lerp(tempRot, myRot, speed);
             } 
         }
 
