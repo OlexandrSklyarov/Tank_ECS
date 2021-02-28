@@ -66,17 +66,18 @@ namespace SA.Tanks
             turret.TurretTransform.rotation = Quaternion.Lerp(turret.TurretTransform.rotation, newRot, speed);
         }
 
-
+        
         private void BarrelRorartion(Vector3 aimPosition, TankTurretComponent turret, float speed)
         {
             var direction = aimPosition - turret.TurretTransform.position;  
+
             var angle = Vector3.Angle(turret.BarrelOriginTransform.forward, direction); 
+            angle = Mathf.Clamp(angle, -MAX_BARREL_ROTATE, MAX_BARREL_ROTATE);              
 
-            angle = Mathf.Clamp(angle, -MAX_BARREL_ROTATE, MAX_BARREL_ROTATE);                 
-            var tempRot = turret.BarrelOriginTransform.rotation;
-            var myRot = Quaternion.LookRotation(direction, Vector3.up);  
+            var curRot = turret.BarrelOriginTransform.rotation;
+            var newRot = Quaternion.LookRotation(direction, Vector3.up);  
 
-            turret.BarrelOriginTransform.rotation = Quaternion.Lerp(tempRot, myRot, speed);             
+            turret.BarrelOriginTransform.rotation = Quaternion.Lerp(curRot, newRot, speed);              
         }
 
         #endregion
