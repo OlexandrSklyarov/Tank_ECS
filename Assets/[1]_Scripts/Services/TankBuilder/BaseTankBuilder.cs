@@ -75,6 +75,7 @@ namespace SA.Tanks.Services
             //получаем компонент Rigidbody
             var rb = poolGO.PoolTransform.GetComponent<Rigidbody>();
             rb.maxAngularVelocity = dataTank.MaxAngularVelosity;
+            rb.centerOfMass = Vector3.zero;
 
             entity.Replace(new MoveComponent()
             {

@@ -12,6 +12,7 @@ namespace SA.Tanks
 
         [SerializeField] DataGame dataGame;
         [SerializeField] DataLevel dataLevel;
+        [SerializeField] Transform playerSpawnPoint;
         [SerializeField] Transform[] enemySpawnPoints;
         [SerializeField] Transform[] waitpoints;
 
@@ -118,6 +119,7 @@ namespace SA.Tanks
                 .Inject(dataGame)
                 .Inject(dataLevel)
                 .Inject(mainCamera)
+                .Inject(playerSpawnPoint)
                 .Inject(enemySpawnPoints)
                 .Inject(waitpoints)
                 .Inject(new GamePool())

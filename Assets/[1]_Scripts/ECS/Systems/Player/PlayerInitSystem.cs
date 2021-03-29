@@ -14,6 +14,7 @@ namespace SA.Tanks
         readonly Camera mainCamera;
         readonly GamePool pool;
         readonly PlayerTankBuilder builder;
+        readonly Transform playerSpawnPoint;
 
         #endregion
 
@@ -24,7 +25,7 @@ namespace SA.Tanks
         {
             builder.Setup(_world, dataGame, mainCamera, pool);
 
-            builder.Create(Vector3.zero, Quaternion.identity);  
+            builder.Create(playerSpawnPoint.position, Quaternion.identity);  
             builder.SetUnitComponent();
             builder.SetPoolObjectComponent();
             builder.SetHealthComponent();
