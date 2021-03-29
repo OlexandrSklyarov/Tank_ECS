@@ -47,7 +47,14 @@ namespace SA.Tanks
             poolGO.PoolTransform.GetProvider().SetEntity(shellEntity);
 
             //add bullet component
-            shellEntity.Replace(new BulletComponent() { Damage = weapon.Damage });
+            shellEntity.Replace(new BulletComponent() 
+            { 
+                Damage = weapon.Damage,
+                LifeTime = 0f,
+                MaxLifeTime = 5f
+            });
+
+
             shellEntity.Replace(new PoolObjectComponent() { PoolGO = poolGO });
 
             //push

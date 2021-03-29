@@ -21,6 +21,7 @@ namespace SA.Tanks
             foreach (var id in bulletFilter)
             {
                 var poolGO = bulletFilter.Get2(id).PoolGO;
+
                 poolGO.PoolTransform.GetComponent<Rigidbody>().isKinematic = true;
 
                 pool.Bullet.Recycle(poolGO);

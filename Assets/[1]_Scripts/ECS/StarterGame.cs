@@ -81,10 +81,12 @@ namespace SA.Tanks
                 .Add(new CameraFollowTargetSystem())               
 
                 //Damage / Destroy
+                .Add(new BulletLifeTimeSystem())
                 .Add(new TakeDamageSystem())
                 .Add(new DestroyPlayerSystem())
                 .Add(new DestroyEnemySystem())
                 .Add(new DestroyBulletSystem())
+                
 
                 //UI
                 .Add(new ChangeTankHealthBarSystem());
