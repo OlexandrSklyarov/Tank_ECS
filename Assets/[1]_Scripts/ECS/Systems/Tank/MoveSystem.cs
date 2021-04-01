@@ -17,41 +17,58 @@ namespace SA.Tanks
             foreach (var id in moveFilter)
             {
                 ref var moveComponent = ref moveFilter.Get1(id);
-                ref var input = ref moveFilter.Get2(id);
+                var input = moveFilter.Get2(id);
 
-                Move(ref moveComponent, ref input);
-                Rotate(ref moveComponent, ref input);                
+                Move(ref moveComponent, input);
+                Rotate(ref moveComponent, input);                
             }
         }
 
 
-        void Move(ref MoveComponent move, ref InputMoveDirectionEvent input)
+        void Move(ref MoveComponent move,  InputMoveDirectionEvent input)
         {
-            var forward = move.RB.transform.position
-                        + move.RB.transform.forward
-                        * input.Vertical
-                        * move.MoveSpeed * Time.deltaTime;
-
-            //Drag
-            if (forward.magnitude > move.MinDrag)
+            var forward = move.RB.transform.position;
+            
+            if (input.Vertical != 0f)
             {
-                move.RB.drag = move.MinDrag;
-            }
-            else if (move.RB.drag < move.MaxDrag)
+                forward = move.RB.transform.position + 
+                    move.RB.transform.forward * 
+                    input.Vertical *
+                    move.MoveSpeed *
+                    move.SpeedMultiplayer;
+            }    
+            else
             {
-                move.RB.drag += move.DragValue;
-            }          
+                move.RB.velocity = new Vector3
+                {
+                    x = 0f,
+                    y = move.RB.velocity.y,
+                    z = 0f
+                };
+            }        
 
             //Move
             move.RB.MovePosition(forward);
+
+            Debug.Log($"move rb: {move.RB.velocity}");
         }        
 
 
-        void Rotate(ref MoveComponent move, ref InputMoveDirectionEvent input)
+        void Rotate(ref MoveComponent move, InputMoveDirectionEvent input)
         {
             var verticalRot = input.Horizontal * move.RotateSpeed;
 
-            var rotation = move.RB.transform.rotation * Quaternion.Euler(0f, verticalRot, 0f);
+            Quaternion rotation;
+             
+            if (input.Horizontal != 0f)
+            {
+                rotation = move.RB.transform.rotation * Quaternion.Euler(0f, verticalRot, 0f);
+            }
+            else
+            {
+                rotation = move.RB.rotation;
+                move.RB.angularVelocity = Vector3.zero;
+            }
 
             move.RB.MoveRotation(rotation);
         }
