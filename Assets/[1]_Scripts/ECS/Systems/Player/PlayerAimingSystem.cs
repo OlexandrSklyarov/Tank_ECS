@@ -15,22 +15,25 @@ namespace SA.Tanks
 
 
         public void Run()
-        {
-            
+        {            
             var mousePosition = Input.mousePosition;
+            var ray = mainCamera.ScreenPointToRay(mousePosition);
 
             foreach (var id in aimingFilter)
             {
                 ref var aiming = ref aimingFilter.Get1(id);
                 var inputEvent = aimingFilter.Get2(id);
-                var playerEntity = aimingFilter.GetEntity(id);             
-
-                var ray = mainCamera.ScreenPointToRay(mousePosition);
+                var playerEntity = aimingFilter.GetEntity(id);                  
 
                 //если луч что либо пересёк, устанавливаем точку прицеливания
                 if (Physics.Raycast(ray, out RaycastHit hit, StaticPrm.Input.MAX_SHOOT_DISTANCE))
                 {
                     aiming.AimPosition = hit.point;
+                    aiming.IsTargetExist = true;
+                }
+                else
+                {
+                    aiming.IsTargetExist = false;
                 }
 
                 //если нажимаем выстрел

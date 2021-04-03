@@ -27,14 +27,21 @@ namespace SA.Tanks
                 var newBarrelRotation = tankRB.rotation;
                 var speed = turret.RotateSpeed * Time.deltaTime;
 
-                //получаем поворот к цели, если она есть и она не слишком близко
-                if (Vector3.Distance(aiming.AimPosition, turret.TurretTransform.position) > turret.MaxDistanceToTarget)
-                {
-                    //поворачиваем башню вокруг вертикальной оси танка (локально)                     
-                    TurretRotation(ref turret, tankRB, aiming.AimPosition, speed);
+                if (aiming.IsTargetExist)
+                {  
+                    //получаем поворот к цели, если она есть и она не слишком близко
+                    if (Vector3.Distance(aiming.AimPosition, turret.TurretTransform.position) > turret.MaxDistanceToTarget)
+                    {
+                        //поворачиваем башню вокруг вертикальной оси танка                     
+                        TurretRotation(ref turret, tankRB, aiming.AimPosition, speed);
 
-                    //поворачиваем дуло танка
-                    BarrelRorartion(ref turret, aiming.AimPosition, speed);
+                        //поворачиваем дуло танка
+                        BarrelRorartion(ref turret, aiming.AimPosition, speed);
+                    }
+                    else
+                    {
+                        DefaultRotation(ref turret, newBarrelRotation, newBarrelRotation, speed);
+                    }
                 }
                 else
                 {
