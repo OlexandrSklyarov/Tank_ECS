@@ -47,16 +47,14 @@ namespace SA.Tanks
         void DefaultRotation(ref TankTurretComponent turret, Quaternion newTurretRotation, Quaternion newBarrelRotation, float speed)
         {
             turret.TurretTransform.rotation = Quaternion.Lerp(turret.TurretTransform.rotation, newTurretRotation, speed);
-            //turret.BarrelOriginTransform.rotation = Quaternion.Lerp(turret.BarrelOriginTransform.rotation, newBarrelRotation, speed * 0.5f);
+            turret.BarrelOriginTransform.rotation = Quaternion.Lerp(turret.BarrelOriginTransform.rotation, newBarrelRotation, speed * 0.5f);
         }
 
 
         void TurretRotation(ref TankTurretComponent turretComp, Rigidbody rb, Vector3 aimPosition, float speed)
-        {
-            var direction = aimPosition - turretComp.TurretTransform.position;    
-            var tempRot = Quaternion.LookRotation(direction.normalized);
-            turretComp.TurretTransform.rotation = Quaternion.Lerp(turretComp.TurretTransform.rotation, tempRot, speed);
-            
+        {            
+            turretComp.TurretTransform.rotation = RotateToTarget(turretComp.TurretTransform, aimPosition, speed); 
+
             var locRot = turretComp.TurretTransform.localRotation;
             locRot.x = locRot.z = 0f;
             turretComp.TurretTransform.localRotation = locRot; 
@@ -65,15 +63,19 @@ namespace SA.Tanks
 
         private void BarrelRorartion(ref TankTurretComponent turretComp, Vector3 aimPosition, float speed)
         {
-            // var direction = aimPosition - turretComp.TurretTransform.position;  
+            turretComp.BarrelOriginTransform.rotation = RotateToTarget(turretComp.BarrelOriginTransform, aimPosition, speed);
+            
+            var locRot = turretComp.BarrelOriginTransform.localRotation;
+            locRot.y = locRot.z = 0f;
+            turretComp.BarrelOriginTransform.localRotation = locRot;              
+        }
 
-            // var angle = Vector3.Angle(turretComp.BarrelOriginTransform.forward, direction); 
-            // angle = Mathf.Clamp(angle, -MAX_BARREL_ROTATE, turretComp.MAX_BARREL_ROTATE);              
 
-            // var curRot = turretComp.BarrelOriginTransform.rotation;
-            // var newRot = Quaternion.LookRotation(direction, Vector3.up);  
-
-            // turretComp.BarrelOriginTransform.rotation = Quaternion.Lerp(curRot, newRot, speed);              
+        Quaternion RotateToTarget(Transform currentTransform, Vector3 aimPosition, float speed)
+        {
+            var direction = aimPosition - currentTransform.position;    
+            var tempRot = Quaternion.LookRotation(direction.normalized);
+            return Quaternion.Lerp(currentTransform.rotation, tempRot, speed);
         }
 
         #endregion
