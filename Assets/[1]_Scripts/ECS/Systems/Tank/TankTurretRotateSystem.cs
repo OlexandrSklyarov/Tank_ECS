@@ -73,6 +73,7 @@ namespace SA.Tanks
             turretComp.BarrelOriginTransform.rotation = RotateToTarget(turretComp.BarrelOriginTransform, aimPosition, speed);
             
             var locRot = turretComp.BarrelOriginTransform.localRotation;
+            locRot.x = Mathf.Clamp(locRot.x, -turretComp.MaxBarrelRotate, turretComp.MaxBarrelRotate);
             locRot.y = locRot.z = 0f;
             turretComp.BarrelOriginTransform.localRotation = locRot;              
         }

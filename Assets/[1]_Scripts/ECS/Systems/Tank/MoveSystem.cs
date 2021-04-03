@@ -49,8 +49,6 @@ namespace SA.Tanks
 
             //Move
             move.RB.MovePosition(forward);
-
-            Debug.Log($"move rb: {move.RB.velocity}");
         }        
 
 
