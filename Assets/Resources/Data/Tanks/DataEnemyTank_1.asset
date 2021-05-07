@@ -17,7 +17,7 @@ MonoBehaviour:
   maxHp: 100
   moveSpeed: 10
   rotateSpeed: 3
-  mass: 500
+  mass: 1700
   centrOfMass: {x: 0, y: 0, z: 0}
   cameraPivotPosition: {x: 0, y: 8, z: -5}
   turretSpeedRotate: 5
