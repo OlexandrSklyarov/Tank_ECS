@@ -80,9 +80,13 @@ namespace SA.Tanks.Services
 
             entity.Replace(new MoveComponent()
             {
-                MoveSpeed = dataTank.MoveSpeed,
-                RotateSpeed = dataTank.RotateSpeed,
                 RB = rb
+            });
+
+            entity.Replace(new TankEngineComponent()
+            {
+                Speed = dataTank.MoveSpeed,
+                RotateSpeed = dataTank.RotateSpeed
             });
         }
 

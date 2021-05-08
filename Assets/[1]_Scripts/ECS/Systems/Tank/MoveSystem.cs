@@ -7,57 +7,44 @@ namespace SA.Tanks
     {
         #region Var
 
-        readonly EcsFilter<MoveComponent, InputMoveDirectionEvent> moveFilter;       
+        readonly EcsFilter<MoveComponent, InputMoveDirectionEvent, TankEngineComponent> filter;
 
         #endregion
 
 
         public void Run()
         {
-            foreach (var id in moveFilter)
+            foreach (var id in filter)
             {
-                ref var moveComponent = ref moveFilter.Get1(id);
-                var input = moveFilter.Get2(id);
+                ref var moveComponent = ref filter.Get1(id);
+                var input = filter.Get2(id);
+                var engine = filter.Get3(id);
 
-                Move(ref moveComponent, input);
-                Rotate(ref moveComponent, input);                
+                Rotate(ref moveComponent, input, engine);
+                MoveForce(ref moveComponent, input, engine);
             }
-        }
-
-
-        void Move(ref MoveComponent move,  InputMoveDirectionEvent input)
-        {
-            var forward = move.RB.transform.position;
-            
-            if (input.Vertical != 0f)
-            {
-                forward = move.RB.transform.position + 
-                    move.RB.transform.forward * 
-                    input.Vertical *
-                    move.MoveSpeed *
-                    move.SpeedMultiplayer;
-            }    
-            else
-            {
-                move.RB.velocity = new Vector3
-                {
-                    x = 0f,
-                    y = move.RB.velocity.y,
-                    z = 0f
-                };
-            }        
-
-            //Move
-            move.RB.MovePosition(forward);
         }        
 
 
-        void Rotate(ref MoveComponent move, InputMoveDirectionEvent input)
+        void MoveForce(ref MoveComponent move, InputMoveDirectionEvent input, TankEngineComponent engine)
         {
-            var verticalRot = input.Horizontal * move.RotateSpeed;
+            var forward = Vector3.zero;
+
+            if (move.IsGrounded)
+            {
+                forward = move.RB.transform.forward * input.Vertical * engine.Speed;
+            }
+
+            move.RB.AddForce(forward, ForceMode.Acceleration);
+        }
+
+
+        void Rotate(ref MoveComponent move, InputMoveDirectionEvent input, TankEngineComponent engine)
+        {
+            var verticalRot = input.Horizontal * engine.RotateSpeed;
 
             Quaternion rotation;
-             
+
             if (input.Horizontal != 0f)
             {
                 rotation = move.RB.transform.rotation * Quaternion.Euler(0f, verticalRot, 0f);
@@ -68,7 +55,7 @@ namespace SA.Tanks
                 move.RB.angularVelocity = Vector3.zero;
             }
 
-            move.RB.MoveRotation(rotation);
-        }
+            if (move.IsGrounded) {move.RB.MoveRotation(rotation);}            
+        }        
     }
 }

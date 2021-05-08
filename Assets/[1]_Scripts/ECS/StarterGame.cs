@@ -86,8 +86,7 @@ namespace SA.Tanks
                 .Add(new TakeDamageSystem())
                 .Add(new DestroyPlayerSystem())
                 .Add(new DestroyEnemySystem())
-                .Add(new DestroyBulletSystem())
-                
+                .Add(new DestroyBulletSystem())                
 
                 //UI
                 .Add(new ChangeTankHealthBarSystem());
@@ -95,6 +94,7 @@ namespace SA.Tanks
             fixedSystems
                 //Tank
                 .Add(new TankTurretRotateSystem())
+                .Add(new CheckGroundSystem())
                 .Add(new MoveSystem());
         }
 
