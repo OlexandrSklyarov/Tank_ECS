@@ -73,7 +73,6 @@ namespace SA.Tanks.Services
 
         public virtual void SetMoveComponent()
         {
-            //получаем компонент Rigidbody
             var rb = poolGO.PoolTransform.GetComponent<Rigidbody>();
             rb.maxAngularVelocity = dataTank.MaxAngularVelosity;
             rb.centerOfMass = dataTank.CentrOfMass;
@@ -88,7 +87,7 @@ namespace SA.Tanks.Services
                 Hits = new RaycastHit[6]   
             });
 
-            entity.Replace(new TankEngineComponent()
+            entity.Replace(new VehicleComponent()
             {
                 Speed = dataTank.MoveSpeed,
                 RotateSpeed = dataTank.RotateSpeed

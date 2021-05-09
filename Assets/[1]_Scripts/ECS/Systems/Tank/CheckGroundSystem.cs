@@ -8,7 +8,7 @@ namespace SA.Tanks
     {
         #region Var
 
-        readonly EcsFilter<MoveComponent, TankEngineComponent> filter;
+        readonly EcsFilter<MoveComponent, VehicleComponent> filter;
 
         RaycastHit[] hits = new RaycastHit[6];
 

@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56be049dcc08a21459f3e4580665feac, type: 3}
   m_Name: DataLevel_1
   m_EditorClassIdentifier: 
-  levelMap: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   enemyCount: 10

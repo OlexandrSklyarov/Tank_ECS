@@ -7,7 +7,7 @@ namespace SA.Tanks
     {
         #region Var
 
-        readonly EcsFilter<MoveComponent, InputMoveDirectionEvent, TankEngineComponent> filter;
+        readonly EcsFilter<MoveComponent, InputMoveDirectionEvent, VehicleComponent> filter;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace SA.Tanks
         }        
 
 
-        void MoveForce(ref MoveComponent move, InputMoveDirectionEvent input, TankEngineComponent engine)
+        void MoveForce(ref MoveComponent move, InputMoveDirectionEvent input, VehicleComponent engine)
         {
             var forward = Vector3.zero;
 
@@ -39,7 +39,7 @@ namespace SA.Tanks
         }
 
 
-        void Rotate(ref MoveComponent move, InputMoveDirectionEvent input, TankEngineComponent engine)
+        void Rotate(ref MoveComponent move, InputMoveDirectionEvent input, VehicleComponent engine)
         {
             var verticalRot = input.Horizontal * engine.RotateSpeed;
 
