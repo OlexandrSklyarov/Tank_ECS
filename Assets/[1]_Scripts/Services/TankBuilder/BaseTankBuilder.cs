@@ -12,6 +12,7 @@ namespace SA.Tanks.Services
         #region Var
 
         protected EcsWorld world;
+        protected DataLevel level;
         protected DataTank dataTank;
         protected DataWeapon weapon;        
         protected Camera mainCamera;
@@ -78,9 +79,13 @@ namespace SA.Tanks.Services
             rb.centerOfMass = dataTank.CentrOfMass;
             rb.mass = dataTank.Mass;
 
+            //Debug.Log($"ground layer: {level.GroundLayer.ToString() }");
+
             entity.Replace(new MoveComponent()
             {
-                RB = rb
+                RB = rb,
+                GroundLayer = 1 << 6,
+                Hits = new RaycastHit[6]   
             });
 
             entity.Replace(new TankEngineComponent()

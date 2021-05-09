@@ -1629,7 +1629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543450652693233996}
   - component: {fileID: 1006724778}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SteppeMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1676,7 +1676,7 @@ GameObject:
   - component: {fileID: 4370337211295182893}
   - component: {fileID: 7610914501453221883}
   - component: {fileID: 3307307568601153631}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terraine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1821,7 +1821,7 @@ GameObject:
   - component: {fileID: 4395037583426746129}
   - component: {fileID: 5188094186581903331}
   - component: {fileID: 5977667100033308005}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bridg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1854,7 +1854,7 @@ GameObject:
   - component: {fileID: 6633040064132340261}
   - component: {fileID: 7261980286612683007}
   - component: {fileID: 6434810969019768053}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bridg3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1991,7 +1991,7 @@ GameObject:
   - component: {fileID: 8879783685482634784}
   - component: {fileID: 3562375788766022690}
   - component: {fileID: 8251211047208446336}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bridg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

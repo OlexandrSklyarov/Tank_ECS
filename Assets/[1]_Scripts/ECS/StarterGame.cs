@@ -12,7 +12,8 @@ namespace SA.Tanks
 
         [SerializeField] DataGame dataGame;
         [SerializeField] DataLevel dataLevel;
-        [SerializeField] Transform playerSpawnPoint;
+        
+        [Space, SerializeField] Transform playerSpawnPoint;
         [SerializeField] Transform[] enemySpawnPoints;
         [SerializeField] Transform[] waitpoints;
 

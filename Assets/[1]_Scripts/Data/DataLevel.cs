@@ -7,15 +7,16 @@ namespace SA.Tanks.Data
     {
         #region Properties
 
-        public GameObject LevelMap => levelMap;
-        public int EnemyCount=> enemyCount;
+        public LayerMask GroundLayer => groundLayer;
+        public int EnemyCount => enemyCount;
+        
 
         #endregion
 
 
         #region  Var
 
-        [SerializeField] GameObject levelMap;
+        [SerializeField] LayerMask groundLayer;
         [SerializeField] [Range(1, 500)]int enemyCount = 1;
 
         #endregion
