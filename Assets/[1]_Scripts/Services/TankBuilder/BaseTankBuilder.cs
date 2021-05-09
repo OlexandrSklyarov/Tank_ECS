@@ -82,6 +82,7 @@ namespace SA.Tanks.Services
 
             entity.Replace(new MoveComponent()
             {
+                TR = poolGO.PoolTransform,
                 RB = rb,
                 GroundLayer = 1 << 6,
                 Hits = new RaycastHit[6]   

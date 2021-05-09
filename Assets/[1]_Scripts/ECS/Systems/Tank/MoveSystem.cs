@@ -32,7 +32,7 @@ namespace SA.Tanks
 
             if (move.IsGrounded)
             {
-                forward = move.RB.transform.forward * input.Vertical * engine.Speed;
+                forward = move.TR.forward * input.Vertical * engine.Speed;
             }
 
             move.RB.AddForce(forward, ForceMode.Acceleration);
@@ -47,7 +47,7 @@ namespace SA.Tanks
 
             if (input.Horizontal != 0f)
             {
-                rotation = move.RB.transform.rotation * Quaternion.Euler(0f, verticalRot, 0f);
+                rotation = move.TR.rotation * Quaternion.Euler(0f, verticalRot, 0f);
             }
             else
             {
