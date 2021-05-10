@@ -24,34 +24,37 @@ namespace SA.Tanks
 
         void CheckGround(ref MoveComponent move)
         {
-            var origin = move.RB.transform;
-            var groundLayer = move.GroundLayer;
-            var duration = 0.5f;
+            // var origin = move.RB.transform;
+            // var groundLayer = move.GroundLayer;
+            // var duration = 1f;
+            // var offset = 1.3f;
 
-            var upPoints = GetUpPoints(origin, duration);
-            var downPoints = GetDownPoints(origin, upPoints, duration);
+            // var upPoints = GetUpPoints(origin, duration);
+            // var downPoints = GetDownPoints(origin, upPoints, duration * offset * -1f);
 
-            for (var i = 0; i < upPoints.Length; i++)
-            {
-                var up = upPoints[i];
-                var down = downPoints[i];
-                var ray = new Ray(up, down);
+            // for (var i = 0; i < upPoints.Length; i++)
+            // {
+            //     var up = upPoints[i];
+            //     var down = downPoints[i];
+            //     var ray = new Ray(up, down);
 
-                Debug.DrawRay(up, down - up, Color.red, duration * 5f);
+            //     Debug.DrawRay(up, down - up, Color.red, duration * offset);
 
-                var result = Physics.RaycastNonAlloc(ray, move.Hits, duration * 5f);
+            //     var result = Physics.RaycastNonAlloc(ray, move.Hits, duration * offset);
 
-                if (result > 0)
-                {
-                    Debug.Log($"hit count: {result}");
-                    move.IsGrounded = true;
-                    return;
-                }
-            }
+            //     if (result > 0)
+            //     {
+            //         Debug.Log($"hit count: {result}");
+            //         move.IsGrounded = true;
+            //         return;
+            //     }
+            // }
 
-            Debug.Log("No ground...");
+            // Debug.Log("No ground...");
 
-            move.IsGrounded = false;
+            // move.IsGrounded = false;
+
+            move.IsGrounded = true;
         }
 
 
@@ -77,7 +80,7 @@ namespace SA.Tanks
 
             for (int v = 0; v < points.Length; v++)
             {
-                points[v] = upPoints[v] + origin.up * duration * -2;
+                points[v] = upPoints[v] + origin.up * duration;
             };
 
             return points;

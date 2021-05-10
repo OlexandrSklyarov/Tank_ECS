@@ -15,10 +15,10 @@ MonoBehaviour:
   tankType: 0
   hp: 1000
   maxHp: 100
-  moveSpeed: 40
-  rotateSpeed: 3
-  mass: 1500
-  centrOfMass: {x: 0, y: 0.2, z: 0.1}
+  moveSpeed: 300
+  rotateSpeed: 1
+  mass: 1700
+  centerOfMass: {x: 0, y: 0, z: 0}
   cameraPivotPosition: {x: 0, y: 4.75, z: -7}
   turretSpeedRotate: 5
   turretMinDistance: 4

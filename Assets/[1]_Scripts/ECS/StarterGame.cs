@@ -90,9 +90,9 @@ namespace SA.Tanks
                 .Add(new DestroyBulletSystem())                
 
                 //UI
-                .Add(new ChangeTankHealthBarSystem());
+                .Add(new ChangeTankHealthBarSystem())
             
-            fixedSystems
+            //fixedSystems
                 //Tank
                 .Add(new TankTurretRotateSystem())
                 .Add(new CheckGroundSystem())

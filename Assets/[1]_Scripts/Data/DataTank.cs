@@ -13,9 +13,9 @@ namespace SA.Tanks.Data
         public int MaxHP => maxHp;
         public float MoveSpeed => moveSpeed;
         public float RotateSpeed => rotateSpeed;
-        public float MaxAngularVelosity => 100f;
+        public float MaxAngularVelocity => 100f;
         public float Mass => mass; 
-        public Vector3 CentrOfMass => centrOfMass;
+        public Vector3 CenterOfMass => centerOfMass;
         public Vector3 CameraPivotPosition => cameraPivotPosition;
         public float TurretSpeedRotate => turretSpeedRotate;
         public float TurretMinDistance => turretMinDistance;
@@ -33,10 +33,10 @@ namespace SA.Tanks.Data
         [SerializeField] TankType tankType;
         [SerializeField] [Range(1, 1000)] int hp;
         [SerializeField] [Range(1, 1000)] int maxHp;
-        [SerializeField] [Range(1f, 100f)] float moveSpeed;
+        [SerializeField] [Range(1f, 300f)] float moveSpeed;
         [SerializeField] [Range(1f, 100f)] float rotateSpeed;
         [SerializeField] [Range(1f, 5000f)] public float mass;
-        [SerializeField] Vector3 centrOfMass;
+        [SerializeField] Vector3 centerOfMass;
 
         [Space]
         [Header("Camera")]

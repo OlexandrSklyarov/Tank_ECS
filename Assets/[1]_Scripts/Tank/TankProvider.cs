@@ -11,6 +11,7 @@ public class TankProvider : MonoBehaviour
     public Transform Turret => turret;
     public Transform Barrel => barrel;
     public Transform Eyes => eyes;
+    public WheelCollider[] Wheels => wheels;
 
     #endregion
 
@@ -21,15 +22,19 @@ public class TankProvider : MonoBehaviour
     [SerializeField] Canvas tankCanvas;
     [SerializeField] Image hpBar;
 
-    [Space]
-    [Header("[Weapon]")]
+
+    [Space, Header("[Weapon]")]
     [SerializeField] Transform firePoint;
     [SerializeField] Transform turret;
     [SerializeField] Transform barrel;
 
-    [Space]
-    [Header("[AI]")]
+    
+    [Space, Header("[AI]")]
     [SerializeField] Transform eyes;
+    
+
+    [Space, Header("[Wheels]")]
+    [SerializeField] WheelCollider[] wheels;
 
     #endregion
 }

@@ -73,9 +73,11 @@ namespace SA.Tanks.Services
 
         public virtual void SetMoveComponent()
         {
+            var provider = poolGO.PoolTransform.GetComponent<TankProvider>();
+
             var rb = poolGO.PoolTransform.GetComponent<Rigidbody>();
-            rb.maxAngularVelocity = dataTank.MaxAngularVelosity;
-            rb.centerOfMass = dataTank.CentrOfMass;
+            rb.maxAngularVelocity = dataTank.MaxAngularVelocity;
+            rb.centerOfMass = dataTank.CenterOfMass;
             rb.mass = dataTank.Mass;
 
             //Debug.Log($"ground layer: {level.GroundLayer.ToString() }");
@@ -85,7 +87,8 @@ namespace SA.Tanks.Services
                 TR = poolGO.PoolTransform,
                 RB = rb,
                 GroundLayer = 1 << 6,
-                Hits = new RaycastHit[6]   
+                Hits = new RaycastHit[6],
+                Wheels =  provider.Wheels
             });
 
             entity.Replace(new VehicleComponent()

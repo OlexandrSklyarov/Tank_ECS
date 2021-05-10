@@ -28,14 +28,29 @@ namespace SA.Tanks
 
         void MoveForce(ref MoveComponent move, InputMoveDirectionEvent input, VehicleComponent engine)
         {
-            var forward = Vector3.zero;
+            var acceleration = 0f;
 
             if (move.IsGrounded)
             {
-                forward = move.TR.forward * input.Vertical * engine.Speed;
+                acceleration = input.Vertical * engine.Speed * engine.SpeedMultiplyer;
             }
 
-            move.RB.AddForce(forward, ForceMode.Acceleration);
+            foreach (var wheel in move.Wheels)
+            {
+                // if (Mathf.Abs(wheel.rpm) > engine.Speed) 
+                // { 
+                //     acceleration = engine.Speed * input.Vertical; 
+                // }
+
+                wheel.motorTorque = acceleration;  
+
+                // if (Mathf.Abs(input.Vertical) != 0f && Mathf.Abs(wheel.rpm) > 0f)
+                // {
+                //     wheel.brakeTorque = 0.05f;
+                // }
+                                              
+                Debug.Log($"rpm: {wheel.rpm}");
+            }            
         }
 
 
