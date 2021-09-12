@@ -30,32 +30,34 @@ namespace SA.Tanks
         {
             var acceleration = 0f;
 
-            if (move.IsGrounded)
-            {
-                acceleration = input.Vertical * engine.Speed * engine.SpeedMultiplyer;
-            }
+            if (!move.IsGrounded) return;
+            
+                bool isPresetMove = Mathf.Abs(input.Vertical) > 0f;
 
-            foreach (var wheel in move.Wheels)
-            {
-                // if (Mathf.Abs(wheel.rpm) > engine.Speed) 
-                // { 
-                //     acceleration = engine.Speed * input.Vertical; 
-                // }
+                acceleration = input.Vertical * engine.MovePower;
 
-                wheel.motorTorque = acceleration;  
+                foreach (var wheel in move.Wheels)
+                {
+                    acceleration = (wheel.rpm < engine.MaxWheelRPM) ? acceleration : 0f; 
 
-                // if (Mathf.Abs(input.Vertical) != 0f && Mathf.Abs(wheel.rpm) > 0f)
-                // {
-                //     wheel.brakeTorque = 0.05f;
-                // }
-                                              
-                Debug.Log($"rpm: {wheel.rpm}");
-            }            
+                    if (isPresetMove)
+                    {
+                        wheel.brakeTorque = 0f;
+                        wheel.motorTorque = acceleration;  
+                    }
+                    else
+                    {
+                        wheel.brakeTorque = engine.MovePower;
+                    }
+                }    
+                    
         }
 
 
         void Rotate(ref MoveComponent move, InputMoveDirectionEvent input, VehicleComponent engine)
         {
+            
+            
             var verticalRot = input.Horizontal * engine.RotateSpeed;
 
             Quaternion rotation;
@@ -70,7 +72,7 @@ namespace SA.Tanks
                 move.RB.angularVelocity = Vector3.zero;
             }
 
-            if (move.IsGrounded) {move.RB.MoveRotation(rotation);}            
+            move.RB.MoveRotation(rotation);           
         }        
     }
 }

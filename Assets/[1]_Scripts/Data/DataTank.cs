@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using SA.Tanks.FSM;
+using UnityEngine.Serialization;
 
 namespace SA.Tanks.Data
 {
@@ -11,7 +12,7 @@ namespace SA.Tanks.Data
         public TankType TankType => tankType;
         public int HP => hp;
         public int MaxHP => maxHp;
-        public float MoveSpeed => moveSpeed;
+        public float EnginePower => enginePower;
         public float RotateSpeed => rotateSpeed;
         public float MaxAngularVelocity => 100f;
         public float Mass => mass; 
@@ -33,7 +34,7 @@ namespace SA.Tanks.Data
         [SerializeField] TankType tankType;
         [SerializeField] [Range(1, 1000)] int hp;
         [SerializeField] [Range(1, 1000)] int maxHp;
-        [SerializeField] [Range(1f, 300f)] float moveSpeed;
+        [FormerlySerializedAs("moveSpeed")] [SerializeField] [Range(1f, 30000f)] float enginePower;
         [SerializeField] [Range(1f, 100f)] float rotateSpeed;
         [SerializeField] [Range(1f, 5000f)] public float mass;
         [SerializeField] Vector3 centerOfMass;

@@ -93,7 +93,7 @@ namespace SA.Tanks.Services
 
             entity.Replace(new VehicleComponent()
             {
-                Speed = dataTank.MoveSpeed,
+                MovePower = dataTank.EnginePower,
                 RotateSpeed = dataTank.RotateSpeed
             });
         }
